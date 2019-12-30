@@ -10,7 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SurprisedViewDelegate <NSObject>
+
+@required
+- (void)changeValue:(NSString *)value;
+
+@optional
+- (void)changeBackgroundColor:(void(^)(UIColor *color))block;
+
+@end
+
 @interface SurprisedView : UIView
+
+@property(nonatomic,weak)id<SurprisedViewDelegate> delegate;
+
+- (NSString *)getAge;
+
 
 @end
 

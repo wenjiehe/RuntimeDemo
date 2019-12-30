@@ -7,9 +7,7 @@
 //
 
 #import "MainTableViewController.h"
-#import "DetailTableViewController.h"
 #import "DescriptionViewController.h"
-#import "CodeViewController.h"
 
 @interface MainTableViewController ()
 
@@ -28,7 +26,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.ary = @[@"Runtime的作用", @"Runtime的基本概念", @"Runtime的方法集合"];
+    self.ary = @[@"动态的添加对象的成员变量和方法", @"动态交换两个方法的实现", @"拦截并替换方法", @"在方法上增加额外功能", @"实现NSCoding的自动归档和解档", @"实现字典转模型的自动转换"];
 }
 
 #pragma mark - Table view data source
@@ -54,15 +52,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    UIViewController *pushVC = nil;
-    if (indexPath.row == 0) {
-        DescriptionViewController *vc = [main instantiateViewControllerWithIdentifier:@"descriptionVC"];
-        pushVC = vc;
-    }else if (indexPath.row == 1 || indexPath.row == 2){
-        DetailTableViewController *vc = [main instantiateViewControllerWithIdentifier:@"detailVC"];
-        pushVC = vc;
-    }
-    [self.navigationController pushViewController:pushVC animated:YES];
+    DescriptionViewController *vc = [main instantiateViewControllerWithIdentifier:@"descriptionVC"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

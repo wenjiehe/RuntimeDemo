@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import <objc/runtime.h>
+#import "SurprisedView.h"
+#import "DescriptionViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,9 +20,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self swizzleInstanceSel:@selector(book) withNewSel:@selector(changeMethod)];
     return YES;
 }
 
+#pragma mark -- 拦截并替换方法
+- (void)swizzleInstanceSel:(SEL)oldSel withNewSel:(SEL)newSel {
+    Class class = SurprisedView.class;
+    Method oldM = class_getInstanceMethod(class, oldSel);
+    Method newM = class_getInstanceMethod(DescriptionViewController.class, newSel);
+    BOOL didAdd = class_addMethod(class, oldSel, method_getImplementation(newM), method_getTypeEncoding(newM));
+    if (didAdd) {
+        NSLog(@"swizzleInstanceSel * didAdd");
+        class_replaceMethod(class, newSel, method_getImplementation(oldM), method_getTypeEncoding(oldM));
+    }
+    else {
+        NSLog(@"swizzleInstanceSel * didn'tAdd ----> exchange!");
+        method_exchangeImplementations(oldM, newM);
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
