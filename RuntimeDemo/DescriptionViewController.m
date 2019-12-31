@@ -234,17 +234,19 @@ void lookImp(id self, SEL _cmd, NSDictionary *dic){
                           @"list" : @[
                                   @{@"name" : @"刘德华",
                                     @"age" : @"28",
-                                    @"teacher" : @{@"name" : @"李小龙", @"sex" : @"男"}
+                                    @"teacher" : @{@"name" : @"<nsnull>", @"sex" : @"男"}
                                   },
                                   @{@"name" : @"梁朝伟",
                                     @"age" : @"29",
-                                    @"teacher" : @{@"name" : @"叶问", @"sex" : @"男"}
+                                    @"teacher" : @{@"name" : @"NULL", @"sex" : @"男"}
                                   },
                                   @{@"name" : @"曾志伟",
                                     @"age" : @"32",
                                     @"teacher" : @{@"name" : @"武则天", @"sex" : @"女"}
                                   }
-                                  ]};
+                                  ],
+                          @"teacher" : @{@"name" : @"战豆豆", @"sex" : @"女"}
+    };
     ClassModel *stModel = [ClassModel objectChangeValue:dic];
     NSLog(@"stModel = %@", [stModel debugDescription]);
 }

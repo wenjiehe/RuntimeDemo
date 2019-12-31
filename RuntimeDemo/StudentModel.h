@@ -10,12 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TeacherModel;
 
 @interface ClassModel : NSObject
 
 @property(nonatomic,copy)NSString *name; /**< 班级名称 */
 @property(nonatomic,copy)NSString *code; /**< 班级编号 */
 @property(nonatomic,strong)NSArray *list;
+@property(nonatomic,strong)TeacherModel *teacher;
 
 @end
 

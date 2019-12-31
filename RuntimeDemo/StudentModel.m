@@ -15,7 +15,7 @@
 
 + (NSDictionary *)customKeyValue
 {
-    return @{@"list" : @"StudentModel"};
+    return @{@"list" : @"StudentModel", @"teacher" : @"TeacherModel"};
 }
 
 @end
