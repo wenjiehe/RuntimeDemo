@@ -16,9 +16,7 @@
     if ([keyValues isEqual:[NSNull null]] || [keyValues isKindOfClass:[NSNull class]]) {
         return nil;
     }
-    NSDictionary *dic = keyValues;
-    id objc = [self createObject:NSStringFromClass(self) dicValue:dic];
-    return objc;
+    return [self createObject:NSStringFromClass(self) dicValue:keyValues];
 }
 
 - (id)createObject:(NSString *)classStr dicValue:(id)value
@@ -55,21 +53,21 @@
         if ([key containsString:@"_"]) {
             key = [key stringByReplacingOccurrencesOfString:@"_" withString:@""];
         }
-//                NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivar)];
-//                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"@" withString:@""];
-//                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-//                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+//        NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivar)];
+//        ivarType = [ivarType stringByReplacingOccurrencesOfString:@"@" withString:@""];
+//        ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+//        ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         dic = [NSObject judgeType:dic];
         if ([dic isKindOfClass:[NSString class]]) {
             NSString *st = (NSString *)dic;
             if (st.length == 0) return ob;
         }
         if ([dic[key] isKindOfClass:[NSString class]]) {
-            [ob setValue:dic[key] forKey:key];
+            if (dic[key]) [ob setValue:dic[key] forKey:key];
         }else if ([dic[key] isKindOfClass:[NSArray class]]){
             for (NSInteger j = 0 ; j < [csDic allKeys].count; j++) {
                 id value = [self createObject:[csDic allValues][j] dicValue:dic[key]];
-                [ob setValue:value forKey:key];
+                if (value) [ob setValue:value forKey:key];
             }
         }else if ([dic[key] isKindOfClass:[NSDictionary class]]){
             for (NSInteger j = 0 ; j < [csDic allKeys].count; j++) {
