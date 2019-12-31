@@ -1,6 +1,6 @@
 # Runtime入门
 
-## 工程配置
+## 使用
 
 > 在当前ViewController使用导入#import <objc/runtime.h>
 
