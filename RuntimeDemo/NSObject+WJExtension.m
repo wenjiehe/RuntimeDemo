@@ -17,42 +17,7 @@
         return nil;
     }
     NSDictionary *dic = keyValues;
-    id objc = [[self alloc] init];
-    NSDictionary *csDic;
-    if ([self respondsToSelector:@selector(customKeyValue)]) {
-        csDic = [self performSelector:@selector(customKeyValue)];
-    }
-    unsigned int count = 0;
-    Ivar *ivarList = class_copyIvarList([self class], &count);
-    for (NSInteger i = 0; i < count; i++) {
-        Ivar ivar = ivarList[i];
-        NSString *key = [NSString stringWithUTF8String:ivar_getName(ivar)];
-        if ([key containsString:@"_"]) {
-            key = [key stringByReplacingOccurrencesOfString:@"_" withString:@""];
-        }
-        NSLog(@"key = %@, value = %@", key, dic[key]);
-        dic = [NSObject judgeType:dic];
-        if ([dic isKindOfClass:[NSString class]]) {
-            NSString *st = (NSString *)dic;
-            if (st.length == 0) return objc;
-        }
-        if ([dic[key] isKindOfClass:[NSString class]]) {
-            if (dic[key]) [objc setValue:dic[key] forKey:key];
-        }else if ([dic[key] isKindOfClass:[NSArray class]]){
-            for (NSInteger k = 0 ; k < [csDic allKeys].count; k++) {
-                NSArray *ary = [self createObject:[csDic allValues][k] dicValue:dic[key]];
-                if (ary.count > 0) [objc setValue:ary forKey:key];
-            }
-        }else if ([dic[key] isKindOfClass:[NSDictionary class]]){
-            for (NSInteger k = 0 ; k < [csDic allKeys].count; k++) {
-                if ([key isEqualToString:[csDic allKeys][k]]) {
-                    id value = [self createObject:[csDic allValues][k] dicValue:dic[key]];
-                    if (value) [objc setValue:value forKey:key];
-                }
-            }
-        }
-    }
-    free(ivarList);
+    id objc = [self createObject:NSStringFromClass(self) dicValue:dic];
     return objc;
 }
 
@@ -94,6 +59,11 @@
 //                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"@" withString:@""];
 //                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\\" withString:@""];
 //                ivarType = [ivarType stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        dic = [NSObject judgeType:dic];
+        if ([dic isKindOfClass:[NSString class]]) {
+            NSString *st = (NSString *)dic;
+            if (st.length == 0) return ob;
+        }
         if ([dic[key] isKindOfClass:[NSString class]]) {
             [ob setValue:dic[key] forKey:key];
         }else if ([dic[key] isKindOfClass:[NSArray class]]){
@@ -103,8 +73,10 @@
             }
         }else if ([dic[key] isKindOfClass:[NSDictionary class]]){
             for (NSInteger j = 0 ; j < [csDic allKeys].count; j++) {
-                id value = [self createObject:[csDic allValues][j] dicValue:dic[key]];
-                [ob setValue:value forKey:key];
+                if ([key isEqualToString:[csDic allKeys][j]]) {
+                    id value = [self createObject:[csDic allValues][j] dicValue:dic[key]];
+                    if (value) [ob setValue:value forKey:key];
+                }
             }
         }
     }
