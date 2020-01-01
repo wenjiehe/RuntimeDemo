@@ -7,6 +7,7 @@
 //
 
 #import "SurprisedView.h"
+#import "UIButton+Hook.h"
 
 @interface SurprisedView ()
 
@@ -30,11 +31,13 @@
         self.ary = @[@"skd", @"dko"];
         
         [self addSubview:self.btn];
+        self.btn.channel = @"长沙";
+        NSLog(@"channel = %@", self.btn.channel);
     }
     return self;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event 
 {
     if ([self.delegate respondsToSelector:@selector(changeValue:)]) {
         [self.delegate changeValue:self.name];

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Hook)
 
+@property(nonatomic,strong)NSString *channel;
+
 
 @end
 

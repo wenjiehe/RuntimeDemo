@@ -1,10 +1,17 @@
 # Runtime入门
 
+## 简介
+
+>   Objective-C是一门动态语言，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。
+runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
+
+
+
+## 消息转发机制
+
 ## 使用
 
 > 在当前ViewController使用导入#import <objc/runtime.h>
-
-## 消息转发机制
 
 ## 应用
 
@@ -158,7 +165,7 @@
 }
 ```
 
-9. 实现字典转模型的自动转换
+9. 实现字典转模型和模型转字典的自动转换
 
 ```
 - (void)automicChangeModel
@@ -184,6 +191,32 @@
     };
     ClassModel *stModel = [ClassModel objectChangeValue:dic];
     NSLog(@"stModel = %@", [stModel debugDescription]);
+    
+    NSDictionary *dictionary = [NSObject valueWithObject:stModel];
+    NSLog(@"dictionary = %@", dictionary);
+}
+```
+
+10. 类别中添加属性
+
+```
+static const char kName;
+
+- (NSString *)channel
+{
+    return objc_getAssociatedObject(self, &kName);
+}
+
+/*
+ OBJC_ASSOCIATION_ASSIGN = 0,           weak,assign
+ OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, strong,nonatomic
+ OBJC_ASSOCIATION_COPY_NONATOMIC = 3,   copy,nonatomic
+ OBJC_ASSOCIATION_RETAIN = 01401,       strong,atomic
+ OBJC_ASSOCIATION_COPY = 01403          copy,atomic
+ */
+- (void)setChannel:(NSString *)channel
+{
+    objc_setAssociatedObject(self, &kName, channel, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 ```
 

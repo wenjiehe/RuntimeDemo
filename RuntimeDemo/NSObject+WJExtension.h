@@ -14,7 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (WJExtension)
 
+/// 字典转模型
+/// @param keyValues 数据
 + (id)objectChangeValue:(id)keyValues;
+
+/// 模型转字典
+/// @param model 模型
++ (id)valueWithObject:(id)model;
 
 + (NSDictionary *)customKeyValue;
 

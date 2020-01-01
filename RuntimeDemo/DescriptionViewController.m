@@ -105,6 +105,7 @@
         NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(*var)]; //获取变量类型
         NSLog(@"ivarName = %@, ivarType = %@", ivarName, ivarType);
     }
+    free(ivar);
 }
 
 #pragma mark -- 获取属性列表
@@ -117,6 +118,7 @@
         const char *propertyName = property_getName(property);
         NSLog(@"propertyName---->%@", [NSString stringWithUTF8String:propertyName]);
     }
+    free(propertyList);
 }
 
 #pragma mark -- 获取方法列表
@@ -128,17 +130,24 @@
         Method method = methodList[i];
         NSLog(@"method---->%@", NSStringFromSelector(method_getName(method)));
     }
+    free(methodList);
 }
 
 #pragma mark -- 获取协议列表
 - (void)getProtocolList
 {
-    unsigned int count = 0;
-    __unsafe_unretained Protocol **protocolList = class_copyProtocolList([self.sv class], &count);
-    for (unsigned int i = 0; i < count; i++) {
-        Protocol *protocol = protocolList[i];
-        const char *protocolName = protocol_getName(protocol);
-        NSLog(@"protocol---->%@", [NSString stringWithUTF8String:protocolName]);
+    if ([SurprisedView conformsToProtocol:@protocol(SurprisedViewDelegate)]) {
+        NSLog(@"已经实现");
+        unsigned int count = 0;
+        __unsafe_unretained Protocol **protocolList = class_copyProtocolList([SurprisedView class], &count);
+        for (unsigned int i = 0; i < count; i++) {
+            Protocol *protocol = protocolList[i];
+            const char *protocolName = protocol_getName(protocol);
+            NSLog(@"protocol---->%@", [NSString stringWithUTF8String:protocolName]);
+        }
+        free(protocolList);
+    }else{
+        NSLog(@"没有实现");
     }
 }
 
@@ -160,6 +169,7 @@
         }
     }
     NSLog(@"after age = %@", self.sv.getAge);
+    free(ivar);
 }
 
 #pragma mark -- 动态添加方法
@@ -225,7 +235,7 @@ void lookImp(id self, SEL _cmd, NSDictionary *dic){
     NSLog(@"%s user = %@", __FUNCTION__, user);
 }
 
-#pragma mark -- 实现字典转模型的自动转换
+#pragma mark -- 实现字典转模型和模型转字典的自动转换
 - (void)automicChangeModel
 {
     //三层模型转换
@@ -249,6 +259,9 @@ void lookImp(id self, SEL _cmd, NSDictionary *dic){
     };
     ClassModel *stModel = [ClassModel objectChangeValue:dic];
     NSLog(@"stModel = %@", [stModel debugDescription]);
+    
+    NSDictionary *dictionary = [NSObject valueWithObject:stModel];
+    NSLog(@"dictionary = %@", dictionary);
 }
 
 /*

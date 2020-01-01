@@ -8,9 +8,11 @@
 
 #import "NSObject+WJExtension.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 
 @implementation NSObject (WJExtension)
 
+/// 字典转模型
 + (id)objectChangeValue:(id)keyValues
 {
     if ([keyValues isEqual:[NSNull null]] || [keyValues isKindOfClass:[NSNull class]]) {
@@ -80,6 +82,43 @@
     }
     free(ivarList);
     return ob;
+}
+
+/// 模型转字典
++ (id)valueWithObject:(id)model
+{
+    if (model) {
+        NSMutableDictionary *mtbDic = [NSMutableDictionary new];
+        const char *className = object_getClassName(model);
+        Class cla = NSClassFromString([NSString stringWithCString:className encoding:NSUTF8StringEncoding]);
+        unsigned int count = 0;
+        objc_property_t *propertyList = class_copyPropertyList(cla, &count);
+        for (NSInteger i = 0; i < count; i++) {
+            objc_property_t property = propertyList[i];
+            const char *propertyName = property_getName(property);
+            NSString *key = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+            id value = [model valueForKey:key];
+            if ([value isKindOfClass:[NSString class]]) {
+                [mtbDic setValue:value forKey:key];
+            }else if ([value isKindOfClass:[NSDictionary class]]){
+                [mtbDic setValue:[NSObject valueWithObject:value] forKey:key];
+            }else if ([value isKindOfClass:[NSArray class]]){
+                NSArray *ary = value;
+                NSMutableArray *mtbAry = [NSMutableArray new];
+                for (id va in ary) {
+                    [mtbAry addObject:[NSObject valueWithObject:va]];
+                }
+                if (mtbAry.count > 0) [mtbDic setValue:mtbAry forKey:key];
+            }else{ //自定义类型走这里
+                [mtbDic setValue:[NSObject valueWithObject:value] forKey:key];
+            }
+        }
+        free(propertyList);
+        mtbDic = [NSObject judgeType:mtbDic];
+        return mtbDic;
+        
+    }
+    return nil;
 }
 
 + (id)judgeType:(id)obj
