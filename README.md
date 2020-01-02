@@ -19,7 +19,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 1. 获取成员变量列表
 
-```
+```Objective-C
 - (void)getIvarList
 {
     unsigned int count = 0;
@@ -36,7 +36,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 2. 获取方法列表
 
-```
+```Objective-C
 - (void)getMethodList
 {
     unsigned int count = 0;
@@ -50,7 +50,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 3. 获取属性列表
 
-```
+```Objective-C
 - (void)getPropertyList
 {
     unsigned int count = 0;
@@ -64,7 +64,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 ```
 
 4. 动态变量控制
-```
+```Objective-C
 - (void)dynamicChangeIvar
 {
     NSLog(@"befroe age = %@", self.sv.getAge);
@@ -87,7 +87,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 5. 动态添加方法
 
-```
+```Objective-C
 - (void)dynamicAddMethod
 {
     class_addMethod([self.sv class], @selector(look:), (IMP)lookImp, "v@:");
@@ -101,7 +101,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 6. 动态交换两个方法的实现
 
-```
+```Objective-C
 - (void)dynamicReplaceMethod
 {
     NSLog(@"%s", __FUNCTION__);
@@ -119,7 +119,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 7. 拦截并替换方法
 
-```
+```Objective-C
 - (void)swizzleInstanceSel:(SEL)oldSel withNewSel:(SEL)newSel {
     Class class = SurprisedView.class;
     Method oldM = class_getInstanceMethod(class, oldSel);
@@ -138,7 +138,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 8. 自动归档和解档
 
-```
+```Objective-C
 - (void)automicKeyedArchiver
 {
     self.path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
@@ -167,7 +167,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 9. 实现字典转模型和模型转字典的自动转换
 
-```
+```Objective-C
 - (void)automicChangeModel
 {
     //三层模型转换
@@ -199,7 +199,7 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 10. 类别中添加属性
 
-```
+```Objective-C
 static const char kName;
 
 - (NSString *)channel

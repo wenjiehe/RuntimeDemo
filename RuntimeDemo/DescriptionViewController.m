@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self initView];
+    [self initView];
     
     //获取成员变量列表
 //    [self getIvarList];
@@ -51,7 +51,7 @@
 //    [self automicKeyedArchiver];
     
     //实现字典转模型的自动转换
-    [self automicChangeModel];
+//    [self automicChangeModel];
 }
 
 - (void)viewDidAppear:(BOOL)animated

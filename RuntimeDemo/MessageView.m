@@ -11,14 +11,24 @@
 
 @implementation MessageView
 
-- (void)beginMessage
+//- (void)beginMessage
+//{
+//    NSLog(@"大明风华");
+//}
+
+//+ (void)endMessage
+//{
+//    NSLog(@"知否知否应是绿肥红瘦");
+//}
+
++ (void)replaceMessage
 {
-    NSLog(@"大明风华");
+    NSLog(@"星辰变");
 }
 
-+ (void)endMessage
+- (void)replaceBegin
 {
-    NSLog(@"知否知否应是绿肥红瘦");
+    NSLog(@"修真聊天群");
 }
 
 #pragma mark -- 消息转发机制 第1阶段: 动态消息解析
@@ -41,6 +51,14 @@
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
     NSLog(@"%s", __FUNCTION__);
+    if ([self respondsToSelector:@selector(replaceBegin)]) {
+        
+    }
+    if ([NSStringFromSelector(aSelector) isEqualToString:@"beginMessage"]) {
+        void (*setter)(id, SEL);
+        setter = (void(*)(id, SEL))[self methodForSelector:@selector(replaceBegin)];
+        setter(self, @selector(replaceBegin));
+    }
     return [super forwardingTargetForSelector:aSelector];
 }
 
@@ -48,7 +66,15 @@
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
     NSLog(@"%s", __FUNCTION__);
+    if ([NSStringFromSelector(aSelector) isEqualToString:@"beginMessage"]) {
+        void (*setter)(id, SEL);
+        setter = (void(*)(id, SEL))[self methodForSelector:@selector(replaceBegin)];
+        setter(self, @selector(replaceBegin));
+    }
     NSMethodSignature *methodSignature = [super methodSignatureForSelector:aSelector];
+    if ([super methodSignatureForSelector:aSelector]) {
+        [NSMethodSignature signatureWithObjCTypes:@""];
+    }
     //如果methodSignature为nil，消息即无法处理
     return methodSignature;
 }

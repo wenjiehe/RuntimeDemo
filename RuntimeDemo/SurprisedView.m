@@ -8,6 +8,7 @@
 
 #import "SurprisedView.h"
 #import "UIButton+Hook.h"
+#import "MessageView.h"
 
 @interface SurprisedView ()
 
@@ -61,6 +62,8 @@
             }];
         }];
     }
+//    MessageView *m = [[MessageView alloc] init];
+//    [m beginMessage];
 }
 
 - (UIButton *)btn
