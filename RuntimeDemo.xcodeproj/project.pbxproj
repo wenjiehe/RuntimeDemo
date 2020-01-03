@@ -18,6 +18,7 @@
 		3D5692AC23B8E323003D941A /* StudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692AB23B8E323003D941A /* StudentModel.m */; };
 		3D5692B523B8EFE8003D941A /* NSObject+WJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */; };
 		3D5692B823BD18AF003D941A /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692B723BD18AE003D941A /* MessageView.m */; };
+		3D5896CA23BEDE9200F954A9 /* SurprisedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5896C923BEDE9200F954A9 /* SurprisedView.swift */; };
 		3D675AC42373175C0008D23A /* SurprisedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D675AC32373175C0008D23A /* SurprisedView.m */; };
 		3D8190D223BDD71800AD57CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8190D123BDD71800AD57CD /* AppDelegate.swift */; };
 		3D8190D423BDD71800AD57CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8190D323BDD71800AD57CD /* SceneDelegate.swift */; };
@@ -50,6 +51,7 @@
 		3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WJExtension.m"; sourceTree = "<group>"; };
 		3D5692B623BD18AE003D941A /* MessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
 		3D5692B723BD18AE003D941A /* MessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		3D5896C923BEDE9200F954A9 /* SurprisedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurprisedView.swift; sourceTree = "<group>"; };
 		3D675AC22373175C0008D23A /* SurprisedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurprisedView.h; sourceTree = "<group>"; };
 		3D675AC32373175C0008D23A /* SurprisedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurprisedView.m; sourceTree = "<group>"; };
 		3D8190CF23BDD71800AD57CD /* Swift-RuntimeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift-RuntimeDemo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				3D8190DA23BDD71F00AD57CD /* Assets.xcassets */,
 				3D8190DC23BDD71F00AD57CD /* LaunchScreen.storyboard */,
 				3D8190DF23BDD71F00AD57CD /* Info.plist */,
+				3D5896C923BEDE9200F954A9 /* SurprisedView.swift */,
 			);
 			path = "Swift-RuntimeDemo";
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			files = (
 				3D8190D623BDD71800AD57CD /* ViewController.swift in Sources */,
 				3D8190D223BDD71800AD57CD /* AppDelegate.swift in Sources */,
+				3D5896CA23BEDE9200F954A9 /* SurprisedView.swift in Sources */,
 				3D8190D423BDD71800AD57CD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

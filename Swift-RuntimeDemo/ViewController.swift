@@ -13,11 +13,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //获取成员变量列表
+        getIvarList()
     }
 
     //MARK: -- 获取成员变量列表
     func getIvarList() -> Void{
-        
+        let count : UnsafeMutablePointer<UInt32>
+        var list : UnsafeMutablePointer<Ivar> = class_copyIvarList(SurprisedView.layerClass, count) ?? UnsafeMutablePointer.init(Ivar)
+        for var v : Ivar in list {
+            var str = String.init(cString: ivar_getName(v)) //获取变量名称
+            var type = String.init(cString: ivar_getTypeEncoding(v)) //获取变量类型
+            print("str = \(str),type = \(type)")
+        }
+        free(list)
     }
 
     //MARK: -- 获取属性列表
