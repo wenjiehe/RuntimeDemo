@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D44F02823C4DA4F0053194B /* NormalForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D44F02723C4DA4F0053194B /* NormalForwarding.m */; };
+		3D44F02B23C4EBD50053194B /* message.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02923C4EBD40053194B /* message.jpg */; };
+		3D44F02C23C4EBD50053194B /* objective-runtime.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02A23C4EBD40053194B /* objective-runtime.png */; };
 		3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C94E23705A41006A5FDB /* AppDelegate.m */; };
 		3D55C95223705A41006A5FDB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C95123705A41006A5FDB /* ViewController.m */; };
 		3D55C95523705A41006A5FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95323705A41006A5FDB /* Main.storyboard */; };
@@ -29,6 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D44F02623C4DA4F0053194B /* NormalForwarding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalForwarding.h; sourceTree = "<group>"; };
+		3D44F02723C4DA4F0053194B /* NormalForwarding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalForwarding.m; sourceTree = "<group>"; };
+		3D44F02923C4EBD40053194B /* message.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = message.jpg; sourceTree = "<group>"; };
+		3D44F02A23C4EBD40053194B /* objective-runtime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "objective-runtime.png"; sourceTree = "<group>"; };
 		3D55C94A23705A41006A5FDB /* RuntimeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuntimeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D55C94D23705A41006A5FDB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D55C94E23705A41006A5FDB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,6 +110,8 @@
 		3D55C94C23705A41006A5FDB /* RuntimeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3D44F02923C4EBD40053194B /* message.jpg */,
+				3D44F02A23C4EBD40053194B /* objective-runtime.png */,
 				3D55C94D23705A41006A5FDB /* AppDelegate.h */,
 				3D55C94E23705A41006A5FDB /* AppDelegate.m */,
 				3D55C95023705A41006A5FDB /* ViewController.h */,
@@ -127,6 +136,8 @@
 				3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */,
 				3D5692B623BD18AE003D941A /* MessageView.h */,
 				3D5692B723BD18AE003D941A /* MessageView.m */,
+				3D44F02623C4DA4F0053194B /* NormalForwarding.h */,
+				3D44F02723C4DA4F0053194B /* NormalForwarding.m */,
 			);
 			path = RuntimeDemo;
 			sourceTree = "<group>";
@@ -226,7 +237,9 @@
 			files = (
 				3D55C95A23705A48006A5FDB /* LaunchScreen.storyboard in Resources */,
 				3D55C95723705A48006A5FDB /* Assets.xcassets in Resources */,
+				3D44F02C23C4EBD50053194B /* objective-runtime.png in Resources */,
 				3D55C95523705A41006A5FDB /* Main.storyboard in Resources */,
+				3D44F02B23C4EBD50053194B /* message.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +263,7 @@
 				3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */,
 				3D55C95223705A41006A5FDB /* ViewController.m in Sources */,
 				3D5692A823B89F70003D941A /* User.m in Sources */,
+				3D44F02823C4DA4F0053194B /* NormalForwarding.m in Sources */,
 				3DE06CF62379B3B400AE7DB8 /* DescriptionViewController.m in Sources */,
 				3D55C95D23705A48006A5FDB /* main.m in Sources */,
 				3D5692A523B894DB003D941A /* UIButton+Hook.m in Sources */,

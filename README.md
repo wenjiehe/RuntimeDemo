@@ -9,6 +9,87 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 
 ## 消息转发机制
 
+## API介绍
+
+```Objective-C
+
+//获取成员变量列表
+Ivar *class_copyIvarList(Class cls, unsigned int *outCount);
+//获取变量名称
+const char * ivar_getName(Ivar v);
+//获取变量类型
+const char * ivar_getTypeEncoding(Ivar v);
+
+//获取属性列表
+objc_property_t *class_copyPropertyList(Class cls, unsigned int *outCount);
+//获取属性名称
+const char * property_getName(objc_property_t property);
+
+//获取类名
+const char *class_getName(Class cls);
+//为类添加成员变量
+BOOL class_addIvar(Class cls, const char *name, size_t size, uint8_t alignment, const char *types);
+//从类中获取成员变量Ivar
+Ivar class_getInstanceVariable(Class cls, const char *name);
+//为类的实例的成员变量赋值
+void object_setIvar(id obj, Ivar ivar, id value);
+//为类添加新的方法，如果该方法已存在则返回NO
+BOOL class_addMethod(Class cls, SEL name, IMP imp, const char *types);
+//获取类中的某个实例方法(减号方法)
+Method class_getInstanceMethod(Class cls, SEL name);
+//获取类中的某个类方法(加号方法)
+Method class_getClassMethod(Class cls, SEL name);
+//获取类中的方法列表
+Method *class_copyMethodList(Class cls, unsigned int *outCount);
+//替换类中已有方法的实现，如果该方法不存在则添加该方法
+IMP class_replaceMethod(Class cls, SEL name, IMP imp, const char *types);
+//获取类中的方法实现
+IMP class_getMethodImplementation(Class cls, SEL name);
+//获取类中的方法实现，该方法的返回值类型为struct
+IMP class_getMethodImplementation_stret(Class cls, SEL name);
+//判断类中是否包含某个方法的实现
+BOOL class_respondsToSelector(Class cls, SEL sel);
+
+//获取Method中的SEL
+SEL method_getName(Method m);
+//获取Method中的IMP
+IMP method_getImplementation(Method m);
+//获取方法的Type字符串（包含参数类型和返回值类型）
+const char *method_getTypeEncoding(Method m);
+//获取参数个数
+unsigned int method_getNumberOfArguments(Method m);
+//获取返回值类型字符串
+char *method_copyReturnType(Method m);
+//获取Method的描述
+struct objc_method_description * method_getDescription(Method m);
+//设置Method的IMP
+IMP method_setImplementation(Method m, IMP imp);
+//替换Method
+void method_exchangeImplementations(Method m1, Method m2);
+
+//获取SEL的名称
+const char * sel_getName(SEL sel);
+//注册一个SEL
+SEL sel_registerName(const char *str);
+//判断两个SEL对象是否相同
+BOOL sel_isEqual(SEL lhs, SEL rhs);
+
+//通过块创建函数指针，block的形式为returnType^(id self, self, method_args …)
+IMP imp_implementationWithBlock(id block);
+//获取IMP中的block
+id imp_getBlock(IMP anImp);
+//移除IMP中的block
+BOOL imp_removeBlock(IMP anImp);
+
+//创建一个类，继承自superclass
+Class objc_allocateClassPair(Class superclass, const char *name, size_t extraBytes);
+//销毁类
+void objc_disposeClassPair(Class cls);
+//注册一个类
+void objc_registerClassPair(Class cls);
+
+```
+
 ## 使用
 
 > 在当前ViewController使用导入#import <objc/runtime.h>
