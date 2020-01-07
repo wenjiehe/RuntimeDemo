@@ -62,8 +62,6 @@
             }];
         }];
     }
-//    MessageView *m = [[MessageView alloc] init];
-//    [m beginMessage];
 }
 
 - (UIButton *)btn
