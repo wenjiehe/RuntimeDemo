@@ -18,8 +18,8 @@
 int main(int argc, char * argv[]) {
     @autoreleasepool {
 //        instrumentObjcMessageSends(YES);
-        MessageView *m = [[MessageView alloc] init];
-        [m beginMessage];
+//        MessageView *m = [[MessageView alloc] init];
+//        [m beginMessage];
 //        instrumentObjcMessageSends(NO);
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }

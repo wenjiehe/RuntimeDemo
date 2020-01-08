@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D44F02823C4DA4F0053194B /* NormalForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D44F02723C4DA4F0053194B /* NormalForwarding.m */; };
 		3D44F02B23C4EBD50053194B /* message.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02923C4EBD40053194B /* message.jpg */; };
 		3D44F02C23C4EBD50053194B /* objective-runtime.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02A23C4EBD40053194B /* objective-runtime.png */; };
 		3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C94E23705A41006A5FDB /* AppDelegate.m */; };
@@ -16,25 +15,28 @@
 		3D55C95723705A48006A5FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95623705A48006A5FDB /* Assets.xcassets */; };
 		3D55C95A23705A48006A5FDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95823705A48006A5FDB /* LaunchScreen.storyboard */; };
 		3D55C95D23705A48006A5FDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C95C23705A48006A5FDB /* main.m */; };
-		3D5692A523B894DB003D941A /* UIButton+Hook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692A423B894DB003D941A /* UIButton+Hook.m */; };
 		3D5692A823B89F70003D941A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692A723B89F70003D941A /* User.m */; };
-		3D5692AC23B8E323003D941A /* StudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692AB23B8E323003D941A /* StudentModel.m */; };
-		3D5692B523B8EFE8003D941A /* NSObject+WJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */; };
-		3D5692B823BD18AF003D941A /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5692B723BD18AE003D941A /* MessageView.m */; };
 		3D5896CA23BEDE9200F954A9 /* SurprisedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5896C923BEDE9200F954A9 /* SurprisedView.swift */; };
-		3D675AC42373175C0008D23A /* SurprisedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D675AC32373175C0008D23A /* SurprisedView.m */; };
 		3D8190D223BDD71800AD57CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8190D123BDD71800AD57CD /* AppDelegate.swift */; };
 		3D8190D423BDD71800AD57CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8190D323BDD71800AD57CD /* SceneDelegate.swift */; };
 		3D8190D623BDD71800AD57CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8190D523BDD71800AD57CD /* ViewController.swift */; };
 		3D8190D923BDD71800AD57CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8190D723BDD71800AD57CD /* Main.storyboard */; };
 		3D8190DB23BDD71F00AD57CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8190DA23BDD71F00AD57CD /* Assets.xcassets */; };
 		3D8190DE23BDD71F00AD57CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8190DC23BDD71F00AD57CD /* LaunchScreen.storyboard */; };
+		3DBA17A023C5B4DC0074850D /* UINavigationController+memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179623C5B4DC0074850D /* UINavigationController+memory.m */; };
+		3DBA17A123C5B4DC0074850D /* UIButton+Hook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179723C5B4DC0074850D /* UIButton+Hook.m */; };
+		3DBA17A223C5B4DC0074850D /* UIViewController+memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179823C5B4DC0074850D /* UIViewController+memory.m */; };
+		3DBA17A323C5B4DC0074850D /* NSObject+MethodIntercept.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179A23C5B4DC0074850D /* NSObject+MethodIntercept.m */; };
+		3DBA17A423C5B4DC0074850D /* NSObject+WJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179F23C5B4DC0074850D /* NSObject+WJExtension.m */; };
+		3DBA17A823C5B5190074850D /* StudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17A723C5B5190074850D /* StudentModel.m */; };
+		3DBA17B123C5B5840074850D /* SurprisedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17AC23C5B5840074850D /* SurprisedView.m */; };
+		3DBA17B223C5B5840074850D /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17AD23C5B5840074850D /* MessageView.m */; };
+		3DBA17B323C5B5840074850D /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17B023C5B5840074850D /* AppManager.m */; };
+		3DBA17B723C5B5BF0074850D /* NormalForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17B523C5B5BF0074850D /* NormalForwarding.m */; };
 		3DE06CF62379B3B400AE7DB8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D44F02623C4DA4F0053194B /* NormalForwarding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalForwarding.h; sourceTree = "<group>"; };
-		3D44F02723C4DA4F0053194B /* NormalForwarding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalForwarding.m; sourceTree = "<group>"; };
 		3D44F02923C4EBD40053194B /* message.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = message.jpg; sourceTree = "<group>"; };
 		3D44F02A23C4EBD40053194B /* objective-runtime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "objective-runtime.png"; sourceTree = "<group>"; };
 		3D55C94A23705A41006A5FDB /* RuntimeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuntimeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,20 +49,10 @@
 		3D55C95923705A48006A5FDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D55C95B23705A48006A5FDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D55C95C23705A48006A5FDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3D5692A323B894DB003D941A /* UIButton+Hook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Hook.h"; sourceTree = "<group>"; };
-		3D5692A423B894DB003D941A /* UIButton+Hook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Hook.m"; sourceTree = "<group>"; };
 		3D5692A623B89F70003D941A /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		3D5692A723B89F70003D941A /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3D5692A923B8DE9A003D941A /* CustomMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMacro.h; sourceTree = "<group>"; };
-		3D5692AA23B8E323003D941A /* StudentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentModel.h; sourceTree = "<group>"; };
-		3D5692AB23B8E323003D941A /* StudentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentModel.m; sourceTree = "<group>"; };
-		3D5692B323B8EFE8003D941A /* NSObject+WJExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+WJExtension.h"; sourceTree = "<group>"; };
-		3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WJExtension.m"; sourceTree = "<group>"; };
-		3D5692B623BD18AE003D941A /* MessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
-		3D5692B723BD18AE003D941A /* MessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
 		3D5896C923BEDE9200F954A9 /* SurprisedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurprisedView.swift; sourceTree = "<group>"; };
-		3D675AC22373175C0008D23A /* SurprisedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurprisedView.h; sourceTree = "<group>"; };
-		3D675AC32373175C0008D23A /* SurprisedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurprisedView.m; sourceTree = "<group>"; };
 		3D8190CF23BDD71800AD57CD /* Swift-RuntimeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift-RuntimeDemo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8190D123BDD71800AD57CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8190D323BDD71800AD57CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +61,26 @@
 		3D8190DA23BDD71F00AD57CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8190DD23BDD71F00AD57CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D8190DF23BDD71F00AD57CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DBA179623C5B4DC0074850D /* UINavigationController+memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+memory.m"; sourceTree = "<group>"; };
+		3DBA179723C5B4DC0074850D /* UIButton+Hook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Hook.m"; sourceTree = "<group>"; };
+		3DBA179823C5B4DC0074850D /* UIViewController+memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+memory.m"; sourceTree = "<group>"; };
+		3DBA179923C5B4DC0074850D /* NSObject+WJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WJExtension.h"; sourceTree = "<group>"; };
+		3DBA179A23C5B4DC0074850D /* NSObject+MethodIntercept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MethodIntercept.m"; sourceTree = "<group>"; };
+		3DBA179B23C5B4DC0074850D /* UIButton+Hook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Hook.h"; sourceTree = "<group>"; };
+		3DBA179C23C5B4DC0074850D /* UINavigationController+memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+memory.h"; sourceTree = "<group>"; };
+		3DBA179D23C5B4DC0074850D /* UIViewController+memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+memory.h"; sourceTree = "<group>"; };
+		3DBA179E23C5B4DC0074850D /* NSObject+MethodIntercept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MethodIntercept.h"; sourceTree = "<group>"; };
+		3DBA179F23C5B4DC0074850D /* NSObject+WJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WJExtension.m"; sourceTree = "<group>"; };
+		3DBA17A623C5B5190074850D /* StudentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentModel.h; sourceTree = "<group>"; };
+		3DBA17A723C5B5190074850D /* StudentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentModel.m; sourceTree = "<group>"; };
+		3DBA17AA23C5B5840074850D /* SurprisedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurprisedView.h; sourceTree = "<group>"; };
+		3DBA17AB23C5B5840074850D /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		3DBA17AC23C5B5840074850D /* SurprisedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurprisedView.m; sourceTree = "<group>"; };
+		3DBA17AD23C5B5840074850D /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		3DBA17AF23C5B5840074850D /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
+		3DBA17B023C5B5840074850D /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
+		3DBA17B523C5B5BF0074850D /* NormalForwarding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalForwarding.m; sourceTree = "<group>"; };
+		3DBA17B623C5B5BF0074850D /* NormalForwarding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalForwarding.h; sourceTree = "<group>"; };
 		3DE06CF42379B3B400AE7DB8 /* DescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
 		3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,34 +124,25 @@
 		3D55C94C23705A41006A5FDB /* RuntimeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3DBA17B423C5B5BF0074850D /* Message */,
+				3DBA17AE23C5B5840074850D /* Manager */,
+				3DBA17A923C5B5840074850D /* View */,
+				3DBA17A523C5B5190074850D /* Model */,
+				3DBA179523C5B4DC0074850D /* Category */,
 				3D44F02923C4EBD40053194B /* message.jpg */,
 				3D44F02A23C4EBD40053194B /* objective-runtime.png */,
 				3D55C94D23705A41006A5FDB /* AppDelegate.h */,
 				3D55C94E23705A41006A5FDB /* AppDelegate.m */,
 				3D55C95023705A41006A5FDB /* ViewController.h */,
 				3D55C95123705A41006A5FDB /* ViewController.m */,
+				3DE06CF42379B3B400AE7DB8 /* DescriptionViewController.h */,
+				3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */,
 				3D55C95323705A41006A5FDB /* Main.storyboard */,
 				3D55C95623705A48006A5FDB /* Assets.xcassets */,
 				3D55C95823705A48006A5FDB /* LaunchScreen.storyboard */,
 				3D55C95B23705A48006A5FDB /* Info.plist */,
 				3D55C95C23705A48006A5FDB /* main.m */,
-				3D675AC22373175C0008D23A /* SurprisedView.h */,
-				3D675AC32373175C0008D23A /* SurprisedView.m */,
-				3DE06CF42379B3B400AE7DB8 /* DescriptionViewController.h */,
-				3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */,
-				3D5692A323B894DB003D941A /* UIButton+Hook.h */,
-				3D5692A423B894DB003D941A /* UIButton+Hook.m */,
-				3D5692A623B89F70003D941A /* User.h */,
-				3D5692A723B89F70003D941A /* User.m */,
 				3D5692A923B8DE9A003D941A /* CustomMacro.h */,
-				3D5692AA23B8E323003D941A /* StudentModel.h */,
-				3D5692AB23B8E323003D941A /* StudentModel.m */,
-				3D5692B323B8EFE8003D941A /* NSObject+WJExtension.h */,
-				3D5692B423B8EFE8003D941A /* NSObject+WJExtension.m */,
-				3D5692B623BD18AE003D941A /* MessageView.h */,
-				3D5692B723BD18AE003D941A /* MessageView.m */,
-				3D44F02623C4DA4F0053194B /* NormalForwarding.h */,
-				3D44F02723C4DA4F0053194B /* NormalForwarding.m */,
 			);
 			path = RuntimeDemo;
 			sourceTree = "<group>";
@@ -157,6 +160,63 @@
 				3D5896C923BEDE9200F954A9 /* SurprisedView.swift */,
 			);
 			path = "Swift-RuntimeDemo";
+			sourceTree = "<group>";
+		};
+		3DBA179523C5B4DC0074850D /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA179C23C5B4DC0074850D /* UINavigationController+memory.h */,
+				3DBA179623C5B4DC0074850D /* UINavigationController+memory.m */,
+				3DBA179D23C5B4DC0074850D /* UIViewController+memory.h */,
+				3DBA179823C5B4DC0074850D /* UIViewController+memory.m */,
+				3DBA179923C5B4DC0074850D /* NSObject+WJExtension.h */,
+				3DBA179F23C5B4DC0074850D /* NSObject+WJExtension.m */,
+				3DBA179B23C5B4DC0074850D /* UIButton+Hook.h */,
+				3DBA179723C5B4DC0074850D /* UIButton+Hook.m */,
+				3DBA179E23C5B4DC0074850D /* NSObject+MethodIntercept.h */,
+				3DBA179A23C5B4DC0074850D /* NSObject+MethodIntercept.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		3DBA17A523C5B5190074850D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA17A623C5B5190074850D /* StudentModel.h */,
+				3DBA17A723C5B5190074850D /* StudentModel.m */,
+				3D5692A623B89F70003D941A /* User.h */,
+				3D5692A723B89F70003D941A /* User.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3DBA17A923C5B5840074850D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA17AA23C5B5840074850D /* SurprisedView.h */,
+				3DBA17AC23C5B5840074850D /* SurprisedView.m */,
+				3DBA17AB23C5B5840074850D /* MessageView.h */,
+				3DBA17AD23C5B5840074850D /* MessageView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3DBA17AE23C5B5840074850D /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA17AF23C5B5840074850D /* AppManager.h */,
+				3DBA17B023C5B5840074850D /* AppManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		3DBA17B423C5B5BF0074850D /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA17B623C5B5BF0074850D /* NormalForwarding.h */,
+				3DBA17B523C5B5BF0074850D /* NormalForwarding.m */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,17 +323,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DBA17A423C5B4DC0074850D /* NSObject+WJExtension.m in Sources */,
 				3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */,
 				3D55C95223705A41006A5FDB /* ViewController.m in Sources */,
 				3D5692A823B89F70003D941A /* User.m in Sources */,
-				3D44F02823C4DA4F0053194B /* NormalForwarding.m in Sources */,
+				3DBA17B223C5B5840074850D /* MessageView.m in Sources */,
+				3DBA17A323C5B4DC0074850D /* NSObject+MethodIntercept.m in Sources */,
+				3DBA17A123C5B4DC0074850D /* UIButton+Hook.m in Sources */,
+				3DBA17A823C5B5190074850D /* StudentModel.m in Sources */,
+				3DBA17B723C5B5BF0074850D /* NormalForwarding.m in Sources */,
 				3DE06CF62379B3B400AE7DB8 /* DescriptionViewController.m in Sources */,
+				3DBA17B123C5B5840074850D /* SurprisedView.m in Sources */,
 				3D55C95D23705A48006A5FDB /* main.m in Sources */,
-				3D5692A523B894DB003D941A /* UIButton+Hook.m in Sources */,
-				3D5692B523B8EFE8003D941A /* NSObject+WJExtension.m in Sources */,
-				3D675AC42373175C0008D23A /* SurprisedView.m in Sources */,
-				3D5692AC23B8E323003D941A /* StudentModel.m in Sources */,
-				3D5692B823BD18AF003D941A /* MessageView.m in Sources */,
+				3DBA17A223C5B4DC0074850D /* UIViewController+memory.m in Sources */,
+				3DBA17A023C5B4DC0074850D /* UINavigationController+memory.m in Sources */,
+				3DBA17B323C5B5840074850D /* AppManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

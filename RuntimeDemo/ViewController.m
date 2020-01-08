@@ -10,7 +10,11 @@
 //使用runtime方法，必须导入runtime.h文件
 #import <objc/runtime.h>
 
+typedef void(^customBlock)(void);
+
 @interface ViewController ()
+
+@property(nonatomic,strong)customBlock block;
 
 @end
 
@@ -19,11 +23,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor orangeColor];
     
-    [self objcRuntime];
-    
+    self.block = ^{
+//        [self tv];
+    };
+
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)dealloc
+{
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)tv
+{
+    NSLog(@"将夜");
+}
 
 - (void)objcRuntime
 {
@@ -34,7 +62,7 @@
 
 - (void)moark:(BOOL)isSuccess
 {
-    NSLog(@"%ld", isSuccess);
+    NSLog(@"%s %ld",__FUNCTION__, isSuccess);
 }
 
 @end

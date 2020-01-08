@@ -13,6 +13,8 @@
 #import "User.h"
 #import "StudentModel.h"
 #import "NSObject+WJExtension.h"
+#import "NSObject+MethodIntercept.h"
+#import "ViewController.h"
 
 @interface DescriptionViewController ()<SurprisedViewDelegate>
 
@@ -28,6 +30,9 @@
     // Do any additional setup after loading the view.
     
     [self initView];
+    
+//    NSArray *ary = @[@"sdsf", @"sdefe"];
+//    NSLog(@"strtre = %@", [ary objectAtIndex:4]); //崩溃点
     
     //获取成员变量列表
 //    [self getIvarList];
@@ -57,6 +62,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"%s", __FUNCTION__);
+
+}
+
+- (void)dealloc
+{
     NSLog(@"%s", __FUNCTION__);
 }
 
@@ -90,6 +101,10 @@
 
 - (void)changeBackgroundColor:(void (^)(UIColor * _Nonnull))block
 {
+    ViewController *vc = [ViewController new];
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
     block([UIColor redColor]);
 }
 
