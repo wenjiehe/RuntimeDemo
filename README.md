@@ -42,12 +42,13 @@ int main(int argc, const char * argv[]) {
 当一个对象调用方法[pe book];的时候，实际上是调用了runtime的objc_msgSend函数，它的原型为:id objc_msgSend(id self, SEL _cmd, ...),self与_cmd是默认隐藏的参数，self是一个指向接收对象的指针，_cmd为方法选择器,这个函数的实现为汇编版本,可以在objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s中查看汇编代码的实现，选取objc-msg-arm64.s部分代码
 
 * 为什么使用汇编语言
-在objc-msg-arm64.s文件中包含了多个版本的objc_msgSend方法，它们是根据返回值的类型和调用者的类型分别处理的
 
-- objc_msgSend:返回值类型为id
-- objc_msgSend_stret:返回值类型为结构体
-- objc_msgSendSuper:向父类发消息，返回值类型为id
-- objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
+ 在objc-msg-arm64.s文件中包含了多个版本的objc_msgSend方法，它们是根据返回值的类型和调用者的类型分别处理的
+
+    - objc_msgSend:返回值类型为id
+    - objc_msgSend_stret:返回值类型为结构体
+    - objc_msgSendSuper:向父类发消息，返回值类型为id
+    - objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
 
 当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
 
@@ -136,9 +137,7 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 
 ## 消息转发机制
 
-当消息被发送到实例对象时，如图所示处理:
-
-![message](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
+![message](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg "当消息被发送到实例对象时，如图所示处理")
 
 * 动态解析流程图
 ```mermaid
