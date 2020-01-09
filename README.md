@@ -48,11 +48,11 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-当一个对象调用方法`[pe book]`;的时候，实际上是调用了`runtime`的`objc_msgSend`函数，它的原型为:`id objc_msgSend(id self, SEL _cmd, ...)`,`self`与`_cmd`是默认隐藏的参数，`self`是一个指向接收对象的指针，`_cmd`为方法选择器,这个函数的实现为汇编版本,可以在`objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s`中查看汇编代码的实现，选取`objc-msg-arm64.s`部分代码
+当一个对象调用方法`[pe book]`;的时候，实际上是调用了`runtime`的`objc_msgSend`函数，它的原型为:`id objc_msgSend(id self, SEL _cmd, ...)`,`self`与`_cmd`是默认隐藏的参数，`self`是一个指向接收对象的指针，`_cmd`为方法选择器,这个函数的实现为汇编版本,可以在`objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s`中查看汇编代码的实现
 
 * 为什么使用汇编语言
 
- 在`objc-msg-arm64.s`文件中包含了多个版本的`objc_msgSend`方法，它们是根据返回值的类型和调用者的类型分别处理的,当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
+ 选取`objc-msg-arm64.s`部分代码，在`objc-msg-arm64.s`文件中包含了多个版本的`objc_msgSend`方法，它们是根据返回值的类型和调用者的类型分别处理的,当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
 
     - objc_msgSend:返回值类型为id
     - objc_msgSend_stret:返回值类型为结构体
@@ -101,7 +101,7 @@ IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
 1. 如果`cache`参数为`YES`,那就调用`cache_getImp`,获取到`imp`,方法结束
 2. 如果`initialize`参数为`YES`并且`cls->isInitialized()`为`NO`,那么进行初始化工作，开辟一个用于读写数据的空间
 
-当`lookUpImpOrForward`的参数`resolver`为`YES`时，进入动态方法解析。调用了`_class_resolveMethod`,`_class_resolveMethod`方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到`_objc_msgForward_impcache`，接着转入`objc-msg-arm64.s`中调用`__objc_msgForward`，汇编中看到调用了`__objc_forward_handler`，然后又转入`objc-runtime.mm`调用了`void *_objc_forward_handler = (void*)objc_defaultForwardHandler;`这里我们就可以看到`objc_defaultForwardHandler`里面那句熟悉的`unrecognized selector sent to instance`
+当`lookUpImpOrForward`的参数`resolver`为`YES`时，进入动态方法解析。调用了`_class_resolveMethod`,`_class_resolveMethod`方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到`_objc_msgForward_impcache`，接着转入`objc-msg-arm64.s`中调用`__objc_msgForward`，汇编代码中看到调用了`__objc_forward_handler`，然后又转入`objc-runtime.mm`调用了`void *_objc_forward_handler = (void*)objc_defaultForwardHandler;`这里我们就可以看到`objc_defaultForwardHandler`里面那句熟悉的`unrecognized selector sent to instance`
 ```Objective-C
 #if !__OBJC2__
 
@@ -154,10 +154,11 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 4. `forwardInvocation`,在这个方法里面可以响应消息，如果依然不能正确响应消息，则报错 `unrecognized selector sent to instance`，如果在这方法里面不做任何事，却又调用了`[super forwardInvocation:anInvocation]`;,那么就进入了`doesNotRecognizeSelector`
 5. `doesNotRecognizeSelector`方法
 
-* Fast Rorwarding
+
+* 快速转发：Fast Rorwarding
 > 快速转发只要重载forwardingTargetForSelector方法,这个方法只能转发给一个对象
 
-* Normal Forwarding
+* 完整消息转发：Normal Forwarding
 > 完整消息转发需要重载methodSignatureForSelector和forwardInvocation方法，forwardInvocation能转发给多个对象
 
 ## API介绍
