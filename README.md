@@ -137,7 +137,7 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 
 ## 消息转发机制
 
-![message](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg "当消息被发送到实例对象时，如图所示处理")
+![message 图标](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg "当消息被发送到实例对象时 如图所示处理")
 
 * 动态解析流程图
 ```mermaid
