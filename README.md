@@ -137,30 +137,24 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 
 ## 消息转发机制
 
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">当消息被发送到实例对象时 如图所示处理</div>
-</center>
-
+![README 图标](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
+<center>当消息被发送到实例对象时 如图所示处理</center>
 
 * 动态解析流程图
 
-```mermaid
-graph TD
-A[resolveInstanceMethod:] -->|返回NO|B[forwardingTargetForSelector:]
-A[resolveInstanceMethod:] -->|返回YES|M[消息已处理]
-    B -->|返回nil|C[methodSignatureForSelector:]
-    B -->|返回备用receiver|M[消息已处理]
-    C -->|返回nil|N[消息无法处理]
-    C -->|返回NSMethodSignature类型的对象|D[forwardInvocation:]
-    D -->M
-    D -->N
+```flow
+A=>operation: [resolveInstanceMethod:]
+B=>operation: [forwardingTargetForSelector:]
+C=>operation: [methodSignatureForSelector:]
+D=>operation: [forwardInvocation:]
+M=>operation: [消息已处理]
+N=>operation: [消息无法处理]
+A(返回NO)->B(返回nil)->C(返回nil)->N
+A(返回YES)->M
+B(返回备用selector)->M
+C(返回NSMethodSignature类型的对象)->D
+D->N
+D->M
 ```
 
 1. 通过resolveInstanceMethod得知方法是否为动态添加，YES则通过class_addMethod动态添加方法，处理消息，否则进入下一步。
