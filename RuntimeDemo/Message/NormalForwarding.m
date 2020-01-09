@@ -13,11 +13,20 @@
 - (void)methodCrashHanding:(NSInvocation *)invocation
 {
     NSLog(@"NormalForwarding---在类:%@中 未实现该方法:%@",NSStringFromClass([invocation.target class]),NSStringFromSelector(invocation.selector));
+    if ([NSStringFromSelector([invocation selector]) isEqualToString:@"beginMessage"]) {
+        [self like];
+    }
 }
 
 - (void)beginMessage
 {
     NSLog(@"星辰变");
 }
+
+- (void)like
+{
+    NSLog(@"名侦探柯南");
+}
+
 
 @end

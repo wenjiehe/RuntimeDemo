@@ -92,7 +92,7 @@ void replaceBegin(id self, SEL _cmd){
     [super forwardInvocation:anInvocation];
 }
 
-//若forwardInvocation没有实现，则会调用此方法
+//若forwardInvocation没有实现，则会调用此方法,可以在这里抛出异常
 - (void)doesNotRecognizeSelector:(SEL)aSelector
 {
     NSLog(@"%s 消息无法处理", __FUNCTION__);

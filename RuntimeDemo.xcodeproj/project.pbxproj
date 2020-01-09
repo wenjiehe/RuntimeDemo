@@ -26,7 +26,7 @@
 		3DBA17A023C5B4DC0074850D /* UINavigationController+memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179623C5B4DC0074850D /* UINavigationController+memory.m */; };
 		3DBA17A123C5B4DC0074850D /* UIButton+Hook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179723C5B4DC0074850D /* UIButton+Hook.m */; };
 		3DBA17A223C5B4DC0074850D /* UIViewController+memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179823C5B4DC0074850D /* UIViewController+memory.m */; };
-		3DBA17A323C5B4DC0074850D /* NSObject+MethodIntercept.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179A23C5B4DC0074850D /* NSObject+MethodIntercept.m */; };
+		3DBA17A323C5B4DC0074850D /* NSObject+MethodIntercept.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179A23C5B4DC0074850D /* NSObject+MethodIntercept.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3DBA17A423C5B4DC0074850D /* NSObject+WJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA179F23C5B4DC0074850D /* NSObject+WJExtension.m */; };
 		3DBA17A823C5B5190074850D /* StudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17A723C5B5190074850D /* StudentModel.m */; };
 		3DBA17B123C5B5840074850D /* SurprisedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17AC23C5B5840074850D /* SurprisedView.m */; };

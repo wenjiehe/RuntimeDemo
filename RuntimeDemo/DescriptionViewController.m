@@ -31,6 +31,10 @@
     
     [self initView];
     
+    //崩溃拦截处理
+//    SurprisedView *m = [[SurprisedView alloc] init];
+//    [m beginMessage];
+    
 //    NSArray *ary = @[@"sdsf", @"sdefe"];
 //    NSLog(@"strtre = %@", [ary objectAtIndex:4]); //崩溃点
     

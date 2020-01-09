@@ -11,6 +11,7 @@
 #import "SurprisedView.h"
 #import "DescriptionViewController.h"
 #import "UIViewController+memory.h"
+#import "NSObject+MethodIntercept.h"
 
 @interface AppDelegate ()
 

@@ -11,21 +11,8 @@
 
 @implementation NSObject (MethodIntercept)
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel
-{
-//    NSLog(@"%s sel = %@", __FUNCTION__, NSStringFromSelector(sel));
-    return YES;
-}
-
-- (id)forwardingTargetForSelector:(SEL)aSelector
-{
-    NSLog(@"%s sel = %@", __FUNCTION__, NSStringFromSelector(aSelector));
-    return nil;
-}
-
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
-    NSLog(@"%s sel = %@", __FUNCTION__, NSStringFromSelector(aSelector));
     return [NSMethodSignature signatureWithObjCTypes:"v@:"];
 }
 
@@ -33,13 +20,6 @@
 {
     NormalForwarding *nr = [NormalForwarding new];
     [nr methodCrashHanding:anInvocation];
-    NSLog(@"%s %@", __FUNCTION__, NSStringFromSelector([anInvocation selector]));
-}
-
-//若forwardInvocation没有实现，则会调用此方法
-- (void)doesNotRecognizeSelector:(SEL)aSelector
-{
-    NSLog(@"%s %@ 消息无法处理", __FUNCTION__, NSStringFromSelector(aSelector));
 }
 
 

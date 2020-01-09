@@ -10,6 +10,15 @@
 >   Objective-C是一门动态语言，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。
 runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
 
+* Runtime的概念
+> Runtime 又叫运行时，是一套底层的 C 语言 API，其为 iOS 内部的核心之一，我们平时编写的 OC 代码，底层都是基于它来实现的。而Objective-C 是一门动态语言，它会将一些工作放在代码运行时才处理而并非编译时。因此，编译器是不够的，我们还需要一个运行时系统(Runtime system)来处理编译后的代码。Runtime 基本是用 C 和汇编写的
+
+* Runtime的作用
+`Objective-C`在三种层面上与 `Runtime` 系统进行交互:
+1. 通过 `Objective-C` 源代码
+2. 通过 `Foundation` 框架的 `NSObject` 类定义的方法
+3. 通过对 `Runtime` 库函数的直接调用
+
 * 如何把代码转换为`runtime`的实现
 打开终端，使用命令`clang -rewrite-objc main.m`对实现文件转换为`.cpp`文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
 ```Objective-C
@@ -145,6 +154,12 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 4. `forwardInvocation`,在这个方法里面可以响应消息，如果依然不能正确响应消息，则报错 `unrecognized selector sent to instance`，如果在这方法里面不做任何事，却又调用了`[super forwardInvocation:anInvocation]`;,那么就进入了`doesNotRecognizeSelector`
 5. `doesNotRecognizeSelector`方法
 
+* Fast Rorwarding
+> 快速转发只要重载forwardingTargetForSelector方法,这个方法只能转发给一个对象
+
+* Normal Forwarding
+> 完整消息转发需要重载methodSignatureForSelector和forwardInvocation方法，forwardInvocation能转发给多个对象
+
 ## API介绍
 
 ```Objective-C
@@ -223,6 +238,45 @@ Class objc_allocateClassPair(Class superclass, const char *name, size_t extraByt
 void objc_disposeClassPair(Class cls);
 //注册一个类
 void objc_registerClassPair(Class cls);
+
+// 添加协议
+BOOL class_addProtocol ( Class cls, Protocol *protocol );
+// 返回类是否实现指定的协议
+BOOL class_conformsToProtocol ( Class cls, Protocol *protocol );
+// 返回类实现的协议列表
+Protocol * class_copyProtocolList ( Class cls, unsigned int *outCount );
+
+// 返回指定的协议
+Protocol * objc_getProtocol ( const char *name );
+// 获取运行时所知道的所有协议的数组
+Protocol ** objc_copyProtocolList ( unsigned int *outCount );
+// 创建新的协议实例
+Protocol * objc_allocateProtocol ( const char *name );
+// 在运行时中注册新创建的协议
+void objc_registerProtocol ( Protocol *proto ); //创建一个新协议后必须使用这个进行注册这个新协议，但是注册后不能够再修改和添加新方法。
+
+// 为协议添加方法
+void protocol_addMethodDescription ( Protocol *proto, SEL name, const char *types, BOOL isRequiredMethod, BOOL isInstanceMethod );
+// 添加一个已注册的协议到协议中
+void protocol_addProtocol ( Protocol *proto, Protocol *addition );
+// 为协议添加属性
+void protocol_addProperty ( Protocol *proto, const char *name, const objc_property_attribute_t *attributes, unsigned int attributeCount, BOOL isRequiredProperty, BOOL isInstanceProperty );
+// 返回协议名
+const char * protocol_getName ( Protocol *p );
+// 测试两个协议是否相等
+BOOL protocol_isEqual ( Protocol *proto, Protocol *other );
+// 获取协议中指定条件的方法的方法描述数组
+struct objc_method_description * protocol_copyMethodDescriptionList ( Protocol *p, BOOL isRequiredMethod, BOOL isInstanceMethod, unsigned int *outCount );
+// 获取协议中指定方法的方法描述
+struct objc_method_description protocol_getMethodDescription ( Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod );
+// 获取协议中的属性列表
+objc_property_t * protocol_copyPropertyList ( Protocol *proto, unsigned int *outCount );
+// 获取协议的指定属性
+objc_property_t protocol_getProperty ( Protocol *proto, const char *name, BOOL isRequiredProperty, BOOL isInstanceProperty );
+// 获取协议采用的协议
+Protocol ** protocol_copyProtocolList ( Protocol *proto, unsigned int *outCount );
+// 查看协议是否采用了另一个协议
+BOOL protocol_conformsToProtocol ( Protocol *proto, Protocol *other );
 
 ```
 
