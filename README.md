@@ -156,14 +156,14 @@ D-M
 
 ```mermaid
 graph TD
-A[resolveInstanceMethod:] -- |返回NO| B[forwardingTargetForSelector:]
-A[resolveInstanceMethod:] -- |返回YES| M[消息已处理]
-    B -- |返回nil| C[methodSignatureForSelector:]
-    B -- |返回备用selector| M[消息已处理]
-    C -- |返回nil| N[消息无法处理]
-    C -- |返回NSMethodSignature类型的对象| D[forwardInvocation:]
-    D -- M
-    D -- N
+A[resolveInstanceMethod:] - |返回NO| B[forwardingTargetForSelector:]
+A[resolveInstanceMethod:] - |返回YES| M[消息已处理]
+    B - |返回nil| C[methodSignatureForSelector:]
+    B - |返回备用selector| M[消息已处理]
+    C - |返回nil| N[消息无法处理]
+    C - |返回NSMethodSignature类型的对象| D[forwardInvocation:]
+    D - M
+    D - N
 ```
 
 1. 通过resolveInstanceMethod得知方法是否为动态添加，YES则通过class_addMethod动态添加方法，处理消息，否则进入下一步。
