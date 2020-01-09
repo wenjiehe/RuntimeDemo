@@ -154,6 +154,18 @@ D-N
 D-M
 ```
 
+```mermaid
+graph TD
+A[resolveInstanceMethod:] -- |返回NO| B[forwardingTargetForSelector:]
+A[resolveInstanceMethod:] -- |返回YES| M[消息已处理]
+    B -- |返回nil| C[methodSignatureForSelector:]
+    B -- |返回备用selector| M[消息已处理]
+    C -- |返回nil| N[消息无法处理]
+    C -- |返回NSMethodSignature类型的对象| D[forwardInvocation:]
+    D -- M
+    D -- N
+```
+
 1. 通过resolveInstanceMethod得知方法是否为动态添加，YES则通过class_addMethod动态添加方法，处理消息，否则进入下一步。
 2. forwardingTargetForSelector用于指定哪个对象来响应消息。如果不为nil就把消息原封不动的转发给目标对象，如果返回nil则进入methodSignatureForSelector。
 3.  methodSignatureForSelector进行方法签名，可以将函数的参数类型和返回值封装。如果返回nil说明消息无法处理并报错 unrecognized selector sent to instance，如果返回 methodSignature，则进入 forwardInvocation。
