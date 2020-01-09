@@ -1,13 +1,159 @@
 # Runtime入门
 
+## 编译环境
+
+* Xcode 11.3
+* Mac OS 10.15.1
+
 ## 简介
 
 >   Objective-C是一门动态语言，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。
 runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
 
+* 如何把代码转换为runtime的实现
+打开终端，使用命令clang -rewrite-objc main.m对实现文件转换为.cpp文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
+```Objective-C
+//main.m文件
+#import <Foundation/Foundation.h>
+#import "People.h"
+
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // insert code here...
+        People *pe = [[People alloc] init];
+        [pe book];
+    }
+    return 0;
+}
+```
+```
+//main.cpp文件
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
+
+        People *pe = ((People *(*)(id, SEL))(void *)objc_msgSend)((id)((People *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("People"), sel_registerName("alloc")), sel_registerName("init"));
+        ((void (*)(id, SEL))(void *)objc_msgSend)((id)pe, sel_registerName("book"));
+    }
+    return 0;
+}
+```
+
+当一个对象调用方法[pe book];的时候，实际上是调用了runtime的objc_msgSend函数，它的原型为:id objc_msgSend(id self, SEL _cmd, ...),self与_cmd是默认隐藏的参数，self是一个指向接收对象的指针，_cmd为方法选择器,这个函数的实现为汇编版本,可以在objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s中查看汇编代码的实现，选取objc-msg-arm64.s部分代码
+
+* 为什么使用汇编语言
+在objc-msg-arm64.s文件中包含了多个版本的objc_msgSend方法，它们是根据返回值的类型和调用者的类型分别处理的
+- objc_msgSend:返回值类型为id
+- objc_msgSend_stret:返回值类型为结构体
+- objc_msgSendSuper:向父类发消息，返回值类型为id
+- objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
+当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
+
+```
+#if SUPPORT_TAGGED_POINTERS
+    .data
+    .align 3
+    .globl _objc_debug_taggedpointer_classes
+_objc_debug_taggedpointer_classes:
+    .fill 16, 8, 0
+    .globl _objc_debug_taggedpointer_ext_classes
+_objc_debug_taggedpointer_ext_classes:
+    .fill 256, 8, 0
+#endif
+
+    ENTRY _objc_msgSend
+    UNWIND _objc_msgSend, NoFrame
+
+    cmp    p0, #0            // nil check and tagged pointer check
+#if SUPPORT_TAGGED_POINTERS
+    b.le    LNilOrTagged        //  (MSB tagged pointer looks negative)
+#else
+    b.eq    LReturnZero
+#endif
+    ldr    p13, [x0]        // p13 = isa
+    GetClassFromIsa_p16 p13        // p16 = class
+```
+SUPPORT_TAGGED_POINTERS的定义在objc-config.h文件中可以看到，只存在于64位架构，当OC版本为2.0版本时，并开始使用64位架构的处理器。别名为[Taggedpointer](https://www.jianshu.com/p/01153d2b28eb),是苹果为了在64位架构的处理器下节省内存和提高执行效率而提出的概念。
+> 可以看到LNilOrTagged如果不为nil那么最后调用了LGetIsaDone，LGetIsaDone调用了CacheLookup NORMAL,当CacheLookup NORMAL如果返回objc_msgSend_uncached时，调用了MethodTableLookup，接着调用了__class_lookupMethodAndLoadCache3(这是runtime方法)
+```
+//lookUpImpOrForward调用时使用缓存参数传入为NO,因为之前已经尝试过查找缓存，
+IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
+{
+    return lookUpImpOrForward(cls, sel, obj, 
+                              YES/*initialize*/, NO/*cache*/, YES/*resolver*/);
+}
+```
+
+lookUpImpOrForward做了两件事：
+1.如果cache参数为YES,那就调用cache_getImp,获取到imp,方法结束
+2.如果initialize参数为YES并且cls->isInitialized()为NO,那么进行初始化工作，开辟一个用于读写数据的空间
+
+当lookUpImpOrForward的参数resolver为YES时，进入动态方法解析。调用了_class_resolveMethod,_class_resolveMethod方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到_objc_msgForward_impcache，接着转入objc-msg-arm64.s中调用__objc_msgForward，汇编中看到调用了__objc_forward_handler，然后又转入objc-runtime.mm调用了void *_objc_forward_handler = (void*)objc_defaultForwardHandler;这里我们就可以看到objc_defaultForwardHandler里面那句熟悉的
+```
+#if !__OBJC2__
+
+// Default forward handler (nil) goes to forward:: dispatch.
+void *_objc_forward_handler = nil;
+void *_objc_forward_stret_handler = nil;
+
+#else
+
+// Default forward handler halts the process.
+__attribute__((noreturn)) void 
+objc_defaultForwardHandler(id self, SEL sel)
+{
+    //打日志触发crash
+    _objc_fatal("%c[%s %s]: unrecognized selector sent to instance %p "
+                "(no message forward handler is installed)", 
+                class_isMetaClass(object_getClass(self)) ? '+' : '-', 
+                object_getClassName(self), sel_getName(sel), self);
+}
+void *_objc_forward_handler = (void*)objc_defaultForwardHandler;
+
+#if SUPPORT_STRET
+struct stret { int i[100]; };
+__attribute__((noreturn)) struct stret 
+objc_defaultForwardStretHandler(id self, SEL sel)
+{
+    objc_defaultForwardHandler(self, sel);
+}
+void *_objc_forward_stret_handler = (void*)objc_defaultForwardStretHandler;
+#endif
+
+void objc_setForwardHandler(void *fwd, void *fwd_stret)
+{
+    _objc_forward_handler = fwd;
+#if SUPPORT_STRET
+    _objc_forward_stret_handler = fwd_stret;
+#endif
+}
+```
+我们想要实现消息转发，就需要替换掉 Handler 并赋值给 _objc_forward_handler 或 _objc_forward_handler_stret，赋值的过程就需要用到 objc_setForwardHandler 函数。
 
 
 ## 消息转发机制
+
+当消息被发送到实例对象时，如图所示处理:
+![message](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
+
+* 动态解析流程图
+```mermaid
+graph TD
+A[resolveInstanceMethod:] -->|返回NO|B[forwardingTargetForSelector:]
+A[resolveInstanceMethod:] -->|返回YES|M[消息已处理]
+B -->|返回nil|C[methodSignatureForSelector:]
+B -->|返回备用receiver|M[消息已处理]
+C -->|返回nil|N[消息无法处理]
+C -->|返回NSMethodSignature类型的对象|D[forwardInvocation:]
+D -->M
+D -->N
+```
+
+1. 通过resolveInstanceMethod得知方法是否为动态添加，YES则通过class_addMethod动态添加方法，处理消息，否则进入下一步。
+2. forwardingTargetForSelector用于指定哪个对象来响应消息。如果不为nil就把消息原封不动的转发给目标对象，如果返回nil则进入methodSignatureForSelector。
+3.  methodSignatureForSelector进行方法签名，可以将函数的参数类型和返回值封装。如果返回nil说明消息无法处理并报错 unrecognized selector sent to instance，如果返回 methodSignature，则进入 forwardInvocation。
+4. forwardInvocation,在这个方法里面可以响应消息，如果依然不能正确响应消息，则报错 unrecognized selector sent to instance，如果在这方法里面不做任何事，却又调用了[super forwardInvocation:anInvocation];,那么就进入了doesNotRecognizeSelector
+5. 如果有实现doesNotRecognizeSelector方法,
 
 ## API介绍
 
@@ -307,5 +453,6 @@ static const char kName;
 * [runtime编译源码-objc4-750.1](https://github.com/wenjiehe/RuntimeSourceCode)
 * [runtime官网介绍文档,已不再维护](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1
 )
+* [http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/](http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/)
 
 

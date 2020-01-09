@@ -63,7 +63,6 @@
 {
     [super viewDidAppear:animated];
     NSLog(@"%s", __FUNCTION__);
-
 }
 
 - (void)dealloc
