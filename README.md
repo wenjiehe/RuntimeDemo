@@ -137,19 +137,7 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 
 ## 消息转发机制
 
-![当消息被发送到实例对象时,如图所示处理](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
-
-### 动态解析流程图
-
-graph TB
-A[resolveInstanceMethod:] --> |返回YES| M[消息已处理]
-A[resolveInstanceMethod:] --> |返回NO| B[forwardingTargetForSelector:]
-  B --> |返回nil| C[methodSignatureForSelector:]
-     B --> |返回备用selector| K[消息已处理]
-  C --> |返回nil| N[消息无法处理]
-  C --> |返回NSMethodSignature类型的对象| D[forwardInvocation:]
-  D --> L[消息已处理]
-  D --> J[消息无法处理]
+![动态方法解析流程](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/objective-runtime.png)
 
 1. 通过`resolveInstanceMethod`得知方法是否为动态添加，`YES`则通过`class_addMethod`动态添加方法，处理消息，否则进入下一步。
 2. `forwardingTargetForSelector`用于指定哪个对象来响应消息。如果不为nil就把消息原封不动的转发给目标对象，如果返回`nil`则进入`methodSignatureForSelector`。
