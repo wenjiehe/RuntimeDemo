@@ -7,11 +7,7 @@
 
 ## 简介
 
->   Objective-C是一门动态语言，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。
-runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
-
-* Runtime的概念
-> Runtime 又叫运行时，是一套底层的 C 语言 API，其为 iOS 内部的核心之一，我们平时编写的 OC 代码，底层都是基于它来实现的。而Objective-C 是一门动态语言，它会将一些工作放在代码运行时才处理而并非编译时。因此，编译器是不够的，我们还需要一个运行时系统(Runtime system)来处理编译后的代码。Runtime 基本是用 C 和汇编写的
+>   Objective-C是一门动态语言，它会将一些工作放在代码运行时才处理而并非编译时，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。Runtime 又叫运行时，是一套底层的 C 语言 API，其为 iOS 内部的核心之一，我们平时编写的 OC 代码，底层都是基于它来实现的。runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
 
 * Runtime的作用
 
