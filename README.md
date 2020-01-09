@@ -140,12 +140,12 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 ### 动态解析流程图
 
 ```flow
-A=operation: [resolveInstanceMethod:]
-B=operation: [forwardingTargetForSelector:]
-C=operation: [methodSignatureForSelector:]
-D=operation: [forwardInvocation:]
-M=operation: [消息已处理]
-N=operation: [消息无法处理]
+A=operation:[resolveInstanceMethod:]
+B=operation:[forwardingTargetForSelector:]
+C=operation:[methodSignatureForSelector:]
+D=operation:[forwardInvocation:]
+M=operation:[消息已处理]
+N=operation:[消息无法处理]
 A(返回NO)-B(返回nil)-C(返回nil)-N
 A(返回YES)-M
 B(返回备用selector)-M
