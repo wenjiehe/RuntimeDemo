@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 ```
-```
+```C++
 //main.cpp文件
 int main(int argc, const char * argv[]) {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
@@ -43,13 +43,15 @@ int main(int argc, const char * argv[]) {
 
 * 为什么使用汇编语言
 在objc-msg-arm64.s文件中包含了多个版本的objc_msgSend方法，它们是根据返回值的类型和调用者的类型分别处理的
+
 - objc_msgSend:返回值类型为id
 - objc_msgSend_stret:返回值类型为结构体
 - objc_msgSendSuper:向父类发消息，返回值类型为id
 - objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
+
 当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
 
-```
+```Objective-C
 #if SUPPORT_TAGGED_POINTERS
     .data
     .align 3
@@ -74,8 +76,9 @@ _objc_debug_taggedpointer_ext_classes:
     GetClassFromIsa_p16 p13        // p16 = class
 ```
 SUPPORT_TAGGED_POINTERS的定义在objc-config.h文件中可以看到，只存在于64位架构，当OC版本为2.0版本时，并开始使用64位架构的处理器。别名为[Taggedpointer](https://www.jianshu.com/p/01153d2b28eb),是苹果为了在64位架构的处理器下节省内存和提高执行效率而提出的概念。
-> 可以看到LNilOrTagged如果不为nil那么最后调用了LGetIsaDone，LGetIsaDone调用了CacheLookup NORMAL,当CacheLookup NORMAL如果返回objc_msgSend_uncached时，调用了MethodTableLookup，接着调用了__class_lookupMethodAndLoadCache3(这是runtime方法)
-```
+
+可以看到LNilOrTagged如果不为nil那么最后调用了LGetIsaDone，LGetIsaDone调用了CacheLookup NORMAL,当CacheLookup NORMAL如果返回objc_msgSend_uncached时，调用了MethodTableLookup，接着调用了__class_lookupMethodAndLoadCache3(这是runtime方法)
+```Objective-C
 //lookUpImpOrForward调用时使用缓存参数传入为NO,因为之前已经尝试过查找缓存，
 IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
 {
@@ -88,8 +91,8 @@ lookUpImpOrForward做了两件事：
 1.如果cache参数为YES,那就调用cache_getImp,获取到imp,方法结束
 2.如果initialize参数为YES并且cls->isInitialized()为NO,那么进行初始化工作，开辟一个用于读写数据的空间
 
-当lookUpImpOrForward的参数resolver为YES时，进入动态方法解析。调用了_class_resolveMethod,_class_resolveMethod方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到_objc_msgForward_impcache，接着转入objc-msg-arm64.s中调用__objc_msgForward，汇编中看到调用了__objc_forward_handler，然后又转入objc-runtime.mm调用了void *_objc_forward_handler = (void*)objc_defaultForwardHandler;这里我们就可以看到objc_defaultForwardHandler里面那句熟悉的
-```
+当lookUpImpOrForward的参数resolver为YES时，进入动态方法解析。调用了_class_resolveMethod,_class_resolveMethod方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到_objc_msgForward_impcache，接着转入objc-msg-arm64.s中调用__objc_msgForward，汇编中看到调用了__objc_forward_handler，然后又转入objc-runtime.mm调用了void *_objc_forward_handler = (void*)objc_defaultForwardHandler;这里我们就可以看到objc_defaultForwardHandler里面那句熟悉的unrecognized selector sent to instance
+```Objective-C
 #if !__OBJC2__
 
 // Default forward handler (nil) goes to forward:: dispatch.
@@ -134,6 +137,7 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 ## 消息转发机制
 
 当消息被发送到实例对象时，如图所示处理:
+
 ![message](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
 
 * 动态解析流程图
@@ -141,19 +145,19 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 graph TD
 A[resolveInstanceMethod:] -->|返回NO|B[forwardingTargetForSelector:]
 A[resolveInstanceMethod:] -->|返回YES|M[消息已处理]
-B -->|返回nil|C[methodSignatureForSelector:]
-B -->|返回备用receiver|M[消息已处理]
-C -->|返回nil|N[消息无法处理]
-C -->|返回NSMethodSignature类型的对象|D[forwardInvocation:]
-D -->M
-D -->N
+    B -->|返回nil|C[methodSignatureForSelector:]
+    B -->|返回备用receiver|M[消息已处理]
+    C -->|返回nil|N[消息无法处理]
+    C -->|返回NSMethodSignature类型的对象|D[forwardInvocation:]
+    D -->M
+    D -->N
 ```
 
 1. 通过resolveInstanceMethod得知方法是否为动态添加，YES则通过class_addMethod动态添加方法，处理消息，否则进入下一步。
 2. forwardingTargetForSelector用于指定哪个对象来响应消息。如果不为nil就把消息原封不动的转发给目标对象，如果返回nil则进入methodSignatureForSelector。
 3.  methodSignatureForSelector进行方法签名，可以将函数的参数类型和返回值封装。如果返回nil说明消息无法处理并报错 unrecognized selector sent to instance，如果返回 methodSignature，则进入 forwardInvocation。
 4. forwardInvocation,在这个方法里面可以响应消息，如果依然不能正确响应消息，则报错 unrecognized selector sent to instance，如果在这方法里面不做任何事，却又调用了[super forwardInvocation:anInvocation];,那么就进入了doesNotRecognizeSelector
-5. 如果有实现doesNotRecognizeSelector方法,
+5. doesNotRecognizeSelector方法
 
 ## API介绍
 
