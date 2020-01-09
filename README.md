@@ -10,8 +10,8 @@
 >   Objective-C是一门动态语言，所以只有编译器是不够的，还需要一个运行时系统(runtime system)来执行编译后的代码。
 runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C 2.0采用的是Modern版的runtime系统，只能运行在iOS和macOS 10.5之后的64位程序中。而较早的32位程序使用Legacy版本的runtime系统，这两个版本最大的区别在于当你更改一个类的实例变量的布局时，在Legacy版本中你需要重新编译它的子类，而Modern版本就不需要。
 
-* 如何把代码转换为runtime的实现
-打开终端，使用命令clang -rewrite-objc main.m对实现文件转换为.cpp文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
+* 如何把代码转换为`runtime`的实现
+打开终端，使用命令`clang -rewrite-objc main.m`对实现文件转换为`.cpp`文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
 ```Objective-C
 //main.m文件
 #import <Foundation/Foundation.h>
@@ -39,16 +39,16 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-当一个对象调用方法[pe book];的时候，实际上是调用了runtime的objc_msgSend函数，它的原型为:id objc_msgSend(id self, SEL _cmd, ...),self与_cmd是默认隐藏的参数，self是一个指向接收对象的指针，_cmd为方法选择器,这个函数的实现为汇编版本,可以在objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s中查看汇编代码的实现，选取objc-msg-arm64.s部分代码
+当一个对象调用方法`[pe book]`;的时候，实际上是调用了`runtime`的`objc_msgSend`函数，它的原型为:`id objc_msgSend(id self, SEL _cmd, ...)`,`self`与`_cmd`是默认隐藏的参数，`self`是一个指向接收对象的指针，`_cmd`为方法选择器,这个函数的实现为汇编版本,可以在`objc-msg-arm/arm64/i386/x86_64/simulator-i386/simulator-x86_64.s`中查看汇编代码的实现，选取`objc-msg-arm64.s`部分代码
 
 * 为什么使用汇编语言
 
- 在objc-msg-arm64.s文件中包含了多个版本的objc_msgSend方法，它们是根据返回值的类型和调用者的类型分别处理的
+ 在`objc-msg-arm64.s`文件中包含了多个版本的`objc_msgSend`方法，它们是根据返回值的类型和调用者的类型分别处理的
 
-    - objc_msgSend:返回值类型为id
-    - objc_msgSend_stret:返回值类型为结构体
-    - objc_msgSendSuper:向父类发消息，返回值类型为id
-    - objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
+    - `objc_msgSend`:返回值类型为id
+    - `objc_msgSend_stret`:返回值类型为结构体
+    - `objc_msgSendSuper`:向父类发消息，返回值类型为id
+    - `objc_msgSendSuper_stret`:向父类发消息，返回值类型为结构体
 
 当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
 
@@ -76,9 +76,9 @@ _objc_debug_taggedpointer_ext_classes:
     ldr    p13, [x0]        // p13 = isa
     GetClassFromIsa_p16 p13        // p16 = class
 ```
-SUPPORT_TAGGED_POINTERS的定义在objc-config.h文件中可以看到，只存在于64位架构，当OC版本为2.0版本时，并开始使用64位架构的处理器。别名为[Taggedpointer](https://www.jianshu.com/p/01153d2b28eb),是苹果为了在64位架构的处理器下节省内存和提高执行效率而提出的概念。
+`SUPPORT_TAGGED_POINTERS`的定义在`objc-config.h`文件中可以看到，只存在于64位架构，当OC版本为2.0版本时，并开始使用`64`位架构的处理器。别名为[Taggedpointer](https://www.jianshu.com/p/01153d2b28eb),是苹果为了在`64`位架构的处理器下节省内存和提高执行效率而提出的概念。
 
-可以看到LNilOrTagged如果不为nil那么最后调用了LGetIsaDone，LGetIsaDone调用了CacheLookup NORMAL,当CacheLookup NORMAL如果返回objc_msgSend_uncached时，调用了MethodTableLookup，接着调用了__class_lookupMethodAndLoadCache3(这是runtime方法)
+可以看到`LNilOrTagged`如果不为`nil`那么最后调用了`LGetIsaDone`，`LGetIsaDone`调用了`CacheLookup NORMAL`,当`CacheLookup NORMAL`如果返回`objc_msgSend_uncached`时，调用了`MethodTableLookup`，接着调用了`__class_lookupMethodAndLoadCache3`(这是runtime方法)
 ```Objective-C
 //lookUpImpOrForward调用时使用缓存参数传入为NO,因为之前已经尝试过查找缓存，
 IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
@@ -88,11 +88,11 @@ IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
 }
 ```
 
-lookUpImpOrForward做了两件事：
-1.如果cache参数为YES,那就调用cache_getImp,获取到imp,方法结束
-2.如果initialize参数为YES并且cls->isInitialized()为NO,那么进行初始化工作，开辟一个用于读写数据的空间
+`lookUpImpOrForward`做了两件事：
+1.如果`cache`参数为`YES`,那就调用`cache_getImp`,获取到`imp`,方法结束
+2.如果initialize参数为YES并且`cls->isInitialized()`为`NO`,那么进行初始化工作，开辟一个用于读写数据的空间
 
-当lookUpImpOrForward的参数resolver为YES时，进入动态方法解析。调用了_class_resolveMethod,_class_resolveMethod方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到_objc_msgForward_impcache，接着转入objc-msg-arm64.s中调用__objc_msgForward，汇编中看到调用了__objc_forward_handler，然后又转入objc-runtime.mm调用了void *_objc_forward_handler = (void*)objc_defaultForwardHandler;这里我们就可以看到objc_defaultForwardHandler里面那句熟悉的unrecognized selector sent to instance
+当`lookUpImpOrForward`的参数`resolver`为`YES`时，进入动态方法解析。调用了`_class_resolveMethod`,`_class_resolveMethod`方法中判断类是否是元类，解析实例方法和解析类方法，如果动态解析实例方法不起作用，走消息转发，会调用到`_objc_msgForward_impcache`，接着转入`objc-msg-arm64.s`中调用`__objc_msgForward`，汇编中看到调用了`__objc_forward_handler`，然后又转入`objc-runtime.mm`调用了`void *_objc_forward_handler = (void*)objc_defaultForwardHandler;`这里我们就可以看到`objc_defaultForwardHandler`里面那句熟悉的`unrecognized selector sent to instance`
 ```Objective-C
 #if !__OBJC2__
 
@@ -132,10 +132,12 @@ void objc_setForwardHandler(void *fwd, void *fwd_stret)
 #endif
 }
 ```
-我们想要实现消息转发，就需要替换掉 Handler 并赋值给 _objc_forward_handler 或 _objc_forward_handler_stret，赋值的过程就需要用到 objc_setForwardHandler 函数。
+我们想要实现消息转发，就需要替换掉 `Handler` 并赋值给 `_objc_forward_handler` 或 `_objc_forward_handler_stret`，赋值的过程就需要用到 `objc_setForwardHandler` 函数。
 
 
 ## 消息转发机制
+
+![当消息被发送到实例对象时,如图所示处理](https://github.com/wenjiehe/RuntimeDemo/blob/master/RuntimeDemo/message.jpg)
 
 ### 动态解析流程图
 
