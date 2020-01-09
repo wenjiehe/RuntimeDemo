@@ -14,13 +14,17 @@ runtime其实有两个版本:"modern"和"legacy"。我们现在用的Objective-C
 > Runtime 又叫运行时，是一套底层的 C 语言 API，其为 iOS 内部的核心之一，我们平时编写的 OC 代码，底层都是基于它来实现的。而Objective-C 是一门动态语言，它会将一些工作放在代码运行时才处理而并非编译时。因此，编译器是不够的，我们还需要一个运行时系统(Runtime system)来处理编译后的代码。Runtime 基本是用 C 和汇编写的
 
 * Runtime的作用
+
 `Objective-C`在三种层面上与 `Runtime` 系统进行交互:
+
 1. 通过 `Objective-C` 源代码
 2. 通过 `Foundation` 框架的 `NSObject` 类定义的方法
 3. 通过对 `Runtime` 库函数的直接调用
 
 * 如何把代码转换为`runtime`的实现
+
 打开终端，使用命令`clang -rewrite-objc main.m`对实现文件转换为`.cpp`文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
+
 ```Objective-C
 //main.m文件
 #import <Foundation/Foundation.h>
@@ -52,14 +56,14 @@ int main(int argc, const char * argv[]) {
 
 * 为什么使用汇编语言
 
- 在`objc-msg-arm64.s`文件中包含了多个版本的`objc_msgSend`方法，它们是根据返回值的类型和调用者的类型分别处理的
+ 在`objc-msg-arm64.s`文件中包含了多个版本的`objc_msgSend`方法，它们是根据返回值的类型和调用者的类型分别处理的,当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
 
     - objc_msgSend:返回值类型为id
     - objc_msgSend_stret:返回值类型为结构体
     - objc_msgSendSuper:向父类发消息，返回值类型为id
     - objc_msgSendSuper_stret:向父类发消息，返回值类型为结构体
 
-当需要发送消息时，编译器会生成中间代码，根据情况分别调用其中之一。
+objc_msgSend的汇编部分代码:
 
 ```Objective-C
 #if SUPPORT_TAGGED_POINTERS
