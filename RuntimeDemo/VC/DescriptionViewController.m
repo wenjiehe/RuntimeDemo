@@ -15,6 +15,7 @@
 #import "NSObject+WJExtension.h"
 #import "NSObject+MethodIntercept.h"
 #import "ViewController.h"
+#import "MainViewController.h"
 
 @interface DescriptionViewController ()<SurprisedViewDelegate>
 
@@ -91,6 +92,10 @@
     
     //解档
 //    [self automicKeyedUnarchiver];
+    
+    //push
+    MainViewController *vc = [MainViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -- SurprisedViewDelegate
