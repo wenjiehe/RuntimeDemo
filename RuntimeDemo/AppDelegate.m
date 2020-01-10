@@ -13,6 +13,7 @@
 #import "UIViewController+memory.h"
 #import "UINavigationController+memory.h"
 #import "AppManager.h"
+#import "NSObject+MethodIntercept.h"
 
 @interface AppDelegate ()
 

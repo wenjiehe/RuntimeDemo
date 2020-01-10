@@ -32,6 +32,10 @@
     
     [self initView];
     
+    //崩溃拦截处理
+//    SurprisedView *m = [[SurprisedView alloc] init];
+//    [m beginMessage];
+    
 //    NSArray *ary = @[@"sdsf", @"sdefe"];
 //    NSLog(@"strtre = %@", [ary objectAtIndex:4]); //崩溃点
     
@@ -64,7 +68,6 @@
 {
     [super viewDidAppear:animated];
     NSLog(@"%s", __FUNCTION__);
-
 }
 
 - (void)dealloc
