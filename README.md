@@ -281,9 +281,9 @@ BOOL protocol_conformsToProtocol ( Protocol *proto, Protocol *other );
 
 ```
 
-## 使用
+## 使用runtime方法
 
-> 在当前ViewController使用导入#import <objc/runtime.h>
+> 导入#import <objc/runtime.h>
 
 ## 应用
 
