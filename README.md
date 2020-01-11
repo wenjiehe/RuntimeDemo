@@ -17,6 +17,65 @@
 2. 通过 `Foundation` 框架的 `NSObject` 类定义的方法
 3. 通过对 `Runtime` 库函数的直接调用
 
+## Objcetive-C的元素认知
+
+1. 对象（id）
+
+```C
+//在objc-private.h文件中可以看到定义
+struct objc_class;
+struct objc_object;
+
+typedef struct objc_class *Class;
+typedef struct objc_object *id;
+
+struct objc_object {
+private:
+    isa_t isa;
+
+public:
+
+    // ISA() assumes this is NOT a tagged pointer object
+    Class ISA();
+    //省略一部分代码
+}
+
+union isa_t {
+    isa_t() { }
+    isa_t(uintptr_t value) : bits(value) { }
+
+    Class cls;
+    uintptr_t bits;
+#if defined(ISA_BITFIELD)
+    struct {
+        ISA_BITFIELD;  // defined in isa.h
+    };
+#endif
+};
+```
+
+`Objcetive-C`中的对象本质上是[^结构体],它是`struct objc_object`类型的指针,id是一个指向objc_object[^结构体]的指针,其中的isa是一个isa_t[^共用体}。
+[^结构体]:结构体（Struct）是一种构造类型或复杂类型，它可以包含多个类型不同的成员
+[^共用体]:共用体语法和结构体非常相似，区别在于结构体的各个成员会占用不同的内存，互相之间没有影响；而共用体的所有成员占用同一段内存，修改一个成员会影响其余所有成员。结构体占用的内存大于等于所有成员占用的内存的总和（成员之间可能会存在缝隙），共用体占用的内存等于最长的成员占用的内存。共用体使用了内存覆盖技术，同一时刻只能保存一个成员的值，如果对新的成员赋值，就会把原来成员的值覆盖掉。
+
+2. 类（Class） 
+
+```C
+//在objc-runtime-new.h文件中可以看到定义
+struct objc_class : objc_object {
+// Class ISA;
+Class superclass;
+cache_t cache;             // formerly cache pointer and vtable
+class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags
+//省略一部分代码
+}
+```
+
+`objc_class`是一个继承于`objc_object`的结构体，包含了一个同样结构体类型的成员superclass,一个`cache_t`结构体类型的成员`cache`,以及一个`class_data_bits_t`结构体类型的成员`bits`。
+
+
+## Objective-C的消息传递
+
 * 如何把代码转换为`runtime`的实现
 
 打开终端，使用命令`clang -rewrite-objc main.m`对实现文件转换为`.cpp`文件，就可以看到实现文件的源码，关于[clang](http://clang.llvm.org/docs/),例如:
@@ -25,7 +84,6 @@
 //main.m文件
 #import <Foundation/Foundation.h>
 #import "People.h"
-
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
