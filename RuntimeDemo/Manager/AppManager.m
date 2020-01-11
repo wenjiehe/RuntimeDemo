@@ -8,6 +8,30 @@
 
 #import "AppManager.h"
 
+@interface AppManager ()
+
+
+@end
+
 @implementation AppManager
+
++ (instancetype)sharedInstance
+{
+    static AppManager *sharedInstance = nil;
+    
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedInstance = [[AppManager alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (NSMutableArray *)vcMtbAry
+{
+    if (!_vcMtbAry) {
+        _vcMtbAry = [NSMutableArray new];
+    }
+    return _vcMtbAry;
+}
 
 @end

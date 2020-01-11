@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-//使用runtime方法，必须导入runtime.h文件
 #import <objc/runtime.h>
 
 typedef void(^customBlock)(void);
@@ -26,7 +25,7 @@ typedef void(^customBlock)(void);
     self.view.backgroundColor = [UIColor orangeColor];
     
     self.block = ^{
-//        [self tv];
+        [self tv];
     };
 
 }
@@ -43,9 +42,13 @@ typedef void(^customBlock)(void);
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)tv

@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppManager : NSObject
 
+@property(nonatomic,strong)NSMutableArray *vcMtbAry; //存储没有释放dealloc的vc
+
++ (instancetype)sharedInstance;
+
 @end
 
 NS_ASSUME_NONNULL_END

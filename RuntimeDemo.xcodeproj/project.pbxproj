@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0377FC23C882BD008E6AD4 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D0377FB23C882BD008E6AD4 /* Config.xcconfig */; };
 		3D44F02B23C4EBD50053194B /* message.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02923C4EBD40053194B /* message.jpg */; };
 		3D44F02C23C4EBD50053194B /* objective-runtime.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D44F02A23C4EBD40053194B /* objective-runtime.png */; };
 		3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C94E23705A41006A5FDB /* AppDelegate.m */; };
-		3D55C95223705A41006A5FDB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D55C95123705A41006A5FDB /* ViewController.m */; };
 		3D55C95523705A41006A5FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95323705A41006A5FDB /* Main.storyboard */; };
 		3D55C95723705A48006A5FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95623705A48006A5FDB /* Assets.xcassets */; };
 		3D55C95A23705A48006A5FDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D55C95823705A48006A5FDB /* LaunchScreen.storyboard */; };
@@ -33,17 +33,18 @@
 		3DBA17B223C5B5840074850D /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17AD23C5B5840074850D /* MessageView.m */; };
 		3DBA17B323C5B5840074850D /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17B023C5B5840074850D /* AppManager.m */; };
 		3DBA17B723C5B5BF0074850D /* NormalForwarding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17B523C5B5BF0074850D /* NormalForwarding.m */; };
-		3DE06CF62379B3B400AE7DB8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */; };
+		3DBA17CE23C5E4EE0074850D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17CB23C5E4EE0074850D /* ViewController.m */; };
+		3DBA17CF23C5E4EE0074850D /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17CC23C5E4EE0074850D /* DescriptionViewController.m */; };
+		3DBA17D223C5E5070074850D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBA17D123C5E5070074850D /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D0377FB23C882BD008E6AD4 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3D44F02923C4EBD40053194B /* message.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = message.jpg; sourceTree = "<group>"; };
 		3D44F02A23C4EBD40053194B /* objective-runtime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "objective-runtime.png"; sourceTree = "<group>"; };
 		3D55C94A23705A41006A5FDB /* RuntimeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuntimeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D55C94D23705A41006A5FDB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D55C94E23705A41006A5FDB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3D55C95023705A41006A5FDB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3D55C95123705A41006A5FDB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3D55C95423705A41006A5FDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D55C95623705A48006A5FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D55C95923705A48006A5FDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,8 +82,12 @@
 		3DBA17B023C5B5840074850D /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
 		3DBA17B523C5B5BF0074850D /* NormalForwarding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalForwarding.m; sourceTree = "<group>"; };
 		3DBA17B623C5B5BF0074850D /* NormalForwarding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalForwarding.h; sourceTree = "<group>"; };
-		3DE06CF42379B3B400AE7DB8 /* DescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
-		3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
+		3DBA17CA23C5E4EE0074850D /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		3DBA17CB23C5E4EE0074850D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3DBA17CC23C5E4EE0074850D /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
+		3DBA17CD23C5E4EE0074850D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3DBA17D023C5E5070074850D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		3DBA17D123C5E5070074850D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +129,7 @@
 		3D55C94C23705A41006A5FDB /* RuntimeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3DBA17C923C5E4EE0074850D /* VC */,
 				3DBA17B423C5B5BF0074850D /* Message */,
 				3DBA17AE23C5B5840074850D /* Manager */,
 				3DBA17A923C5B5840074850D /* View */,
@@ -133,16 +139,13 @@
 				3D44F02A23C4EBD40053194B /* objective-runtime.png */,
 				3D55C94D23705A41006A5FDB /* AppDelegate.h */,
 				3D55C94E23705A41006A5FDB /* AppDelegate.m */,
-				3D55C95023705A41006A5FDB /* ViewController.h */,
-				3D55C95123705A41006A5FDB /* ViewController.m */,
-				3DE06CF42379B3B400AE7DB8 /* DescriptionViewController.h */,
-				3DE06CF52379B3B400AE7DB8 /* DescriptionViewController.m */,
 				3D55C95323705A41006A5FDB /* Main.storyboard */,
 				3D55C95623705A48006A5FDB /* Assets.xcassets */,
 				3D55C95823705A48006A5FDB /* LaunchScreen.storyboard */,
 				3D55C95B23705A48006A5FDB /* Info.plist */,
 				3D55C95C23705A48006A5FDB /* main.m */,
 				3D5692A923B8DE9A003D941A /* CustomMacro.h */,
+				3D0377FB23C882BD008E6AD4 /* Config.xcconfig */,
 			);
 			path = RuntimeDemo;
 			sourceTree = "<group>";
@@ -217,6 +220,19 @@
 				3DBA17B523C5B5BF0074850D /* NormalForwarding.m */,
 			);
 			path = Message;
+			sourceTree = "<group>";
+		};
+		3DBA17C923C5E4EE0074850D /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				3DBA17CA23C5E4EE0074850D /* DescriptionViewController.h */,
+				3DBA17CC23C5E4EE0074850D /* DescriptionViewController.m */,
+				3DBA17D023C5E5070074850D /* MainViewController.h */,
+				3DBA17D123C5E5070074850D /* MainViewController.m */,
+				3DBA17CD23C5E4EE0074850D /* ViewController.h */,
+				3DBA17CB23C5E4EE0074850D /* ViewController.m */,
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +318,7 @@
 				3D55C95723705A48006A5FDB /* Assets.xcassets in Resources */,
 				3D44F02C23C4EBD50053194B /* objective-runtime.png in Resources */,
 				3D55C95523705A41006A5FDB /* Main.storyboard in Resources */,
+				3D0377FC23C882BD008E6AD4 /* Config.xcconfig in Resources */,
 				3D44F02B23C4EBD50053194B /* message.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,14 +342,15 @@
 			files = (
 				3DBA17A423C5B4DC0074850D /* NSObject+WJExtension.m in Sources */,
 				3D55C94F23705A41006A5FDB /* AppDelegate.m in Sources */,
-				3D55C95223705A41006A5FDB /* ViewController.m in Sources */,
 				3D5692A823B89F70003D941A /* User.m in Sources */,
+				3DBA17D223C5E5070074850D /* MainViewController.m in Sources */,
 				3DBA17B223C5B5840074850D /* MessageView.m in Sources */,
+				3DBA17CF23C5E4EE0074850D /* DescriptionViewController.m in Sources */,
 				3DBA17A323C5B4DC0074850D /* NSObject+MethodIntercept.m in Sources */,
 				3DBA17A123C5B4DC0074850D /* UIButton+Hook.m in Sources */,
 				3DBA17A823C5B5190074850D /* StudentModel.m in Sources */,
 				3DBA17B723C5B5BF0074850D /* NormalForwarding.m in Sources */,
-				3DE06CF62379B3B400AE7DB8 /* DescriptionViewController.m in Sources */,
+				3DBA17CE23C5E4EE0074850D /* ViewController.m in Sources */,
 				3DBA17B123C5B5840074850D /* SurprisedView.m in Sources */,
 				3D55C95D23705A48006A5FDB /* main.m in Sources */,
 				3DBA17A223C5B4DC0074850D /* UIViewController+memory.m in Sources */,

@@ -11,6 +11,8 @@
 #import "SurprisedView.h"
 #import "DescriptionViewController.h"
 #import "UIViewController+memory.h"
+#import "UINavigationController+memory.h"
+#import "AppManager.h"
 #import "NSObject+MethodIntercept.h"
 
 @interface AppDelegate ()
@@ -33,11 +35,8 @@
     Method newM = class_getInstanceMethod(DescriptionViewController.class, newSel);
     BOOL didAdd = class_addMethod(class, oldSel, method_getImplementation(newM), method_getTypeEncoding(newM));
     if (didAdd) {
-        NSLog(@"swizzleInstanceSel * didAdd");
         class_replaceMethod(class, newSel, method_getImplementation(oldM), method_getTypeEncoding(oldM));
-    }
-    else {
-        NSLog(@"swizzleInstanceSel * didn'tAdd ----> exchange!");
+    }else {
         method_exchangeImplementations(oldM, newM);
     }
 }
@@ -53,6 +52,16 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSMutableArray *listAry = [[NSMutableArray alloc] init];
+    for (NSString *str in [AppManager sharedInstance].vcMtbAry) {
+        if (![listAry containsObject:str]) {
+            [listAry addObject:str];
+        }
+    }
+    [AppManager sharedInstance].vcMtbAry = listAry;
+    for (NSString *str in [AppManager sharedInstance].vcMtbAry) {
+        NSLog(@"没有释放的 vc = %@", str);
+    }
 }
 
 
