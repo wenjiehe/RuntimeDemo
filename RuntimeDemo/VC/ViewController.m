@@ -24,6 +24,7 @@ typedef void(^customBlock)(void);
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor orangeColor];
     
+    //循环引用
     self.block = ^{
         [self tv];
     };

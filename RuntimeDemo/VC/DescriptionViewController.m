@@ -9,6 +9,7 @@
 #import "DescriptionViewController.h"
 //使用runtime方法，必须导入runtime.h文件
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import "SurprisedView.h"
 #import "User.h"
 #import "StudentModel.h"
@@ -30,7 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self initView];
+//    [self initView];
     
     //崩溃拦截处理
 //    SurprisedView *m = [[SurprisedView alloc] init];
@@ -62,6 +63,9 @@
     
     //实现字典转模型的自动转换
 //    [self automicChangeModel];
+    
+    //动态创建类
+    [self dynamicCreateClass];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -286,6 +290,39 @@ void lookImp(id self, SEL _cmd, NSDictionary *dic){
     NSDictionary *dictionary = [NSObject valueWithObject:stModel];
     NSLog(@"dictionary = %@", dictionary);
 }
+
+#pragma mark -- 动态创建类
+- (void)dynamicCreateClass
+{
+    //动态创建一个Student继承于NSObject类
+    Class student = objc_allocateClassPair([NSObject class], "Student", 0);
+    //为该类添加NSString *_name的成员变量
+    class_addIvar(student, "_name", sizeof(NSString *), log2(sizeof(NSString *)), @encode(NSString *));
+    //注册方法名为fly的方法
+    SEL fly = sel_registerName("fly:");
+    //增加名为fly的方法
+    class_addMethod(student, fly, (IMP)flyIMP, "v@:@");
+    //注册该类
+    objc_registerClassPair(student);
+    
+    //创建类的实例
+    id s = [[student alloc] init];
+    //kvc动态改变对象s中的实例变量
+    [s setValue:@"五竹" forKey:@"name"];
+    NSLog(@"name = %@", [s valueForKey:@"name"]);
+    ((void (*)(id, SEL, id))objc_msgSend)(s, fly, @"庆余年");
+    //当student类或者它的子类的实例还存在，则不能调用objc_disposeClassPair这个方法；因此这里要先销毁实例对象后才能销毁类；
+    s = nil;
+    //销毁类
+    objc_disposeClassPair(student);
+    
+    NSLog(@"after name = %@", [s valueForKey:@"name"]);
+}
+
+void flyIMP(id self, SEL _cmd, NSString *s){
+    NSLog(@"sssss = %@", s);
+}
+
 
 /*
 #pragma mark - Navigation

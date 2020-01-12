@@ -11,16 +11,23 @@ import UIKit
 
 class SurprisedView: UIView {
     
-    var name = "李沐宸"
-    var age = "23"
-    var url = NSURL.init(string: "https://www.baidu.com")
-    var ary : [String] = ["sdj", "sjdief"]
-    var btn : UIButton
+    var name:String
+    var age:String
+    var url:URL
+    var ary: [String] = ["sdj", "sjdief"]
+    var btn: UIButton?
     
     override init(frame: CGRect) {
-        self.btn.setTitle("删除", for: .normal)
-        self.btn.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
-        self.addSubview(self.btn)
+        name = "李沐宸"
+        age = "23"
+        url = URL(string: "https://www.baidu.com")!
+        btn = UIButton(type: .custom)
+        btn?.setTitle("删除" , for: .normal)
+        btn!.addTarget(SurprisedView.self, action: #selector(clickButton), for: .touchUpInside)
+        
+        super.init(frame: frame)
+
+        self.addSubview(self.btn!)
     }
     
     required init?(coder: NSCoder) {

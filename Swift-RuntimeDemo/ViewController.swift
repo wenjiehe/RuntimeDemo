@@ -15,39 +15,88 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //获取成员变量列表
-        getIvarList()
+//        getIvarList()
+        
+        //获取属性列表
+//        getPropertyList()
+        
+        //获取方法列表
+//        getMethodList()
+        
+        //动态控制成员变量
+//        dynamicChangeIvar()
+        
+        //动态交换两个方法的实现
+        dynamicReplaceMethod()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
     }
 
     //MARK: -- 获取成员变量列表
     func getIvarList() -> Void{
-        let count : UnsafeMutablePointer<UInt32>
-        var list : UnsafeMutablePointer<Ivar> = class_copyIvarList(SurprisedView.layerClass, count) ?? UnsafeMutablePointer.init(Ivar)
-        for var v : Ivar in list {
-            var str = String.init(cString: ivar_getName(v)) //获取变量名称
-            var type = String.init(cString: ivar_getTypeEncoding(v)) //获取变量类型
-            print("str = \(str),type = \(type)")
+        let surCla = SurprisedView()
+        var count: UInt32 = 0
+        let list = class_copyIvarList(object_getClass(surCla), &count)
+        for index in 0...Int(count) {
+            guard let str = ivar_getName((list?[index])!) else { return } //获取变量名称
+//            guard let type = ivar_getTypeEncoding((list?[index])!) else {return } //获取变量类型
+            print("name = \(String.init(cString: str))")
         }
         free(list)
     }
 
     //MARK: -- 获取属性列表
     func getPropertyList() -> Void{
-        
+        let surCla = SurprisedView()
+        var count: UInt32 = 0
+        let list = class_copyPropertyList(object_getClass(surCla), &count)
+        let c = Int(count)
+        if c > 0 {
+            for index in 0...c {
+                let p = list?[index]
+                let str = property_getName(p!)
+                print("name = \(String.init(utf8String: str) ?? "meiyou")")
+            }
+        }
+        free(list)
     }
     
     //MARK: -- 获取方法列表
     func getMethodList() -> Void{
-        
+        let surCla = SurprisedView()
+        var count: UInt32 = 0
+        let list = class_copyMethodList(object_getClass(surCla), &count)
+        let c = Int(count)
+        if c > 0 {
+            for index in 0..<c {
+                let p = list?[index]
+                let str = method_getName(p!)
+                print("method = \(NSStringFromSelector(str))")
+            }
+        }
+        free(list)
     }
-    
-    //MARK: -- 获取协议列表
-    func getProtocolList() -> Void{
         
-    }
-    
     //MARK: -- 动态变量控制
     func dynamicChangeIvar() -> Void{
-        
+        let surCla = SurprisedView()
+        print(surCla.age)
+        var count: UInt32 = 0
+        let list = class_copyIvarList(object_getClass(surCla), &count)
+        let c = Int(count)
+        if c > 0 {
+            for index in 0..<c {
+                guard let str = ivar_getName((list?[index])!) else { return } //获取变量名称
+                let name = String.init(cString: str)
+                if name == "age" {
+                    print("age = \(name)")
+                }
+                print("name = \(name)")
+            }
+        }
+        free(list)
     }
     
     //MARK: -- 动态添加方法
@@ -57,10 +106,13 @@ class ViewController: UIViewController {
     
     //MARK: -- 动态交换两个方法的实现
     func dynamicReplaceMethod() -> Void{
-        
+        let originMethod = class_getInstanceMethod(object_getClass(self), #selector(viewDidAppear(_:)))
+        let swizeeMethod = class_getInstanceMethod(object_getClass(self), #selector(customDidAppear(_:)))
+        method_exchangeImplementations(originMethod!, swizeeMethod!)
     }
     
-    func customDidAppear(_ animated: Bool) -> Void{
+    @objc dynamic func customDidAppear(_ animated: Bool) -> Void{
+        print("customDidAppear")
         customDidAppear(animated)
     }
     
